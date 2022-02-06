@@ -5,7 +5,7 @@ Viittaus sisältää kaksi pääkohtaa: tekstissä esiintyvän lähdeviitteen ja
 \end{enumerate}
 Numeroviittaus sijoitetaan hakasulkeisiin ja nimi-vuosiviittaus kaarisulkeisiin. Ensin mainitussa käytetään juoksevaa numerointia ja jälkimmäisessä tekijän sukunimeä ja julkaisuvuotta. Kumpikin viittaustapa on sallittu, ja niiden yleisyys vaihtelee aloittain. Valitse yksi ja ole järjestelmällinen sitä käyttäessäsi.
 
-\LaTeX{}in tavallisimmin käytetty lähdeviittaustoiminto on pitkään ollut Bib\TeX. Se on kuitenkin jo vanha, ja sitä joustavampi ja ilmaisuvoimaisempi vaihtoehto on Bib\LaTeX{} \parencite{biblatex}. Käytännössä suuri osa tieteellisestä julkaisemisesta hyödyntää vanhempaa työkalua, mutta muutostakin on tapahtumassa. Näistä syistä tämä pohja ohjaa käyttämään Bib\LaTeX{}ia.
+\LaTeX{}in tavallisimmin käytetty lähdeviittaustoiminto on pitkään ollut Bib\TeX. Se on kuitenkin jo vanha, ja sitä joustavampi ja ilmaisuvoimaisempi vaihtoehto on Bib\LaTeX{} . Käytännössä suuri osa tieteellisestä julkaisemisesta hyödyntää vanhempaa työkalua, mutta muutostakin on tapahtumassa. Näistä syistä tämä pohja ohjaa käyttämään Bib\LaTeX{}ia.
 
 Molemmat esitellyt järjestelmät perustuvat siihen, että käytettyjen lähteiden bibliografiset tiedot kerätään \texttt{.bib}-tiedostoon erityisellä syntaksilla. Ohjelma lukee sekä tämän ''tietokannan'' että kirjoitettavan dokumentin, sekä muodostaa viitteet ja viiteluettelon niiden pohjalta. Seuraavassa käydään läpi molempien viittaustyylien muodostaminen Bib\LaTeX{}in avulla. Oletuksena pohjassa on aktiivisena numeroviittaus, ja sen voi vaihtaa nimi-vuosi\-järjestelmään kirjoittamalla dokumenttiluokan valinnaiseksi argumentiksi \texttt{authoryear}.
 
@@ -37,7 +37,7 @@ Lähdeviittaus sijoitetaan tekstin joukkoon mahdollisimman lähelle viittauskoht
 
 Lähdeluettelon pohjana toimivan \texttt{.bib}-tiedoston jokaista erillistä lähdettä varten varataan yksikäsitteinen tunniste, joka aloittaa tietojen esittelyn. Tunnisteet kannattaa valita mahdollisimman kuvaaviksi, sillä kaikki viittaukset tapahtuvat niiden avulla. Numeroviittausjärjestelmässä jokainen viittaus luodaan \verbcommand{cite}-komennolla: esimerkiksi \verbcommand{cite\{notsoshort\}}. Tämä tuottaa paikalleen vaikkapa merkinnän \cite{notsoshort}, riippuen lopullisesta lähdeluettelosta. Viittaukseen voidaan lisätä tietoja valinnaisten argumenttien avulla: esimerkiksi kirjoittamalla \verbcommand{cite[s. 30]\{notsoshort\}} tuottaa \cite[s. 30]{notsoshort} ja \verbcommand{cite[katso][s. 30]\{notsoshort\}} tuottaa \cite[katso][s. 30]{notsoshort}.
 
-Nimi-vuosijärjestelmä on monimutkaisempi, sillä se sallii monenlaisia siteerausmahdollisuuksia, kuten yllä nähdään. Bib\LaTeX{}in toimintalogiikka pysyy kuitenkin samanlaisena, vain komennot vaihtuvat. Tärkeimmät viittauskomennot ovat \verbcommand{parencite}, \verbcommand{parencite*}, \verbcommand{citeauthor} ja \verbcommand{textcite}, jotka tuottavat tuloksinaan (Oetiker et al. 2018), (2018), Oetiker et al. ja Oetiker et al. (2018) samassa järjestyksessä.  Lisää komentoja voi etsiä dokumentaatiosta \parencite{biblatex}.
+Nimi-vuosijärjestelmä on monimutkaisempi, sillä se sallii monenlaisia siteerausmahdollisuuksia, kuten yllä nähdään. Bib\LaTeX{}in toimintalogiikka pysyy kuitenkin samanlaisena, vain komennot vaihtuvat. Tärkeimmät viittauskomennot ovat \verbcommand{parencite}, \verbcommand{parencite*}, \verbcommand{citeauthor} ja \verbcommand{textcite}, jotka tuottavat tuloksinaan (Oetiker et al. 2018), (2018), Oetiker et al. ja Oetiker et al. (2018) samassa järjestyksessä.  Lisää komentoja voi etsiä dokumentaatiosta .
 
 \section{Lähdeluettelo}
 
@@ -67,4 +67,4 @@ jos ne tiedetään. Bib\LaTeX{} huolehtii tietojen järjestämisestä keskenää
 \end{quotation}
 }
 
-Opinnäytteissä lähdeluettelo kannattaa järjestää aakkosjärjestykseen ensimmäisen kirjoittajan sukunimen perusteella. Tämä tapahtuu tässä pohjassa automaattisesti. Erinomainen keino muodostaa yksittäinen lähde nopeasti on etsiä sille pohja Google Scholarin avulla. Se luo automaattisesti hyvän yritteen Bib\TeX{}in ja Bib\LaTeX{}in käyttöön. Dokumentaation lisäksi hyvä yhteenveto mahdollisista lähdetyypeistä ja niihin liittyvistä kentistä löytyy lähteestä \parencite{bibmanagement}.
+Opinnäytteissä lähdeluettelo kannattaa järjestää aakkosjärjestykseen ensimmäisen kirjoittajan sukunimen perusteella. Tämä tapahtuu tässä pohjassa automaattisesti. Erinomainen keino muodostaa yksittäinen lähde nopeasti on etsiä sille pohja Google Scholarin avulla. Se luo automaattisesti hyvän yritteen Bib\TeX{}in ja Bib\LaTeX{}in käyttöön. Dokumentaation lisäksi hyvä yhteenveto mahdollisista lähdetyypeistä ja niihin liittyvistä kentistä löytyy lähteestä .
