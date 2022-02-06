@@ -1,4 +1,11 @@
 .idea/
+auxil/
 out/
 
 *.iml
+main.glg
+main.glo
+main.gls
+main.ist
+
+src/figures/*.pdf
