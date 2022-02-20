@@ -86,6 +86,39 @@ Learn best practices and procedures to make your Linux environment automatableWh
     year = {2021},
 }
 
+@inproceedings{RahmanAkond2019TSSS,
+    author = {Rahman, Akond and Parnin, Chris and Williams, Laurie},
+    abstract = {Practitioners use infrastructure as code (IaC) scripts to provision servers and development environments. While developing IaC scripts, practitioners may inadvertently introduce security smells. Security smells are recurring coding patterns that are indicative of security weakness and can potentially lead to security breaches. The goal of this paper is to help practitioners avoid insecure coding practices while developing infrastructure as code (IaC) scripts through an empirical study of security smells in IaC scripts. We apply qualitative analysis on 1,726 IaC scripts to identify seven security smells. Next, we implement and validate a static analysis tool called Security Linter for Infrastructure as Code scripts (SLIC) to identify the occurrence of each smell in 15,232 IaC scripts collected from 293 open source repositories. We identify 21,201 occurrences of security smells that include 1,326 occurrences of hard-coded passwords. We submitted bug reports for 1,000 randomly-selected security smell occurrences. We obtain 212 responses to these bug reports, of which 148 occurrences were accepted by the development teams to be fixed. We observe security smells can have a long lifetime, e.g., a hard-coded secret can persist for as long as 98 months, with a median lifetime of 20 months.},
+    booktitle = {2019 IEEE/ACM 41st International Conference on Software Engineering (ICSE)},
+    copyright = {Copyright 2019 Elsevier B.V., All rights reserved.},
+    isbn = {9781728108698},
+    issn = {0270-5257},
+    keywords = {devops ; devsecops ; empirical study ; Encoding ; infrastructure as code ; Password ; puppet ; security ; Servers ; smell ; Software ; Static analysis ; Tools},
+    language = {eng},
+    pages = {164-175},
+    publisher = {IEEE},
+    title = {The Seven Sins: Security Smells in Infrastructure as Code Scripts},
+    volume = {2019-},
+    year = {2019},
+}
+
+@article{MeylanAlexandre2020ASot,
+    author = {Meylan, Alexandre and Cherubini, Mauro and Chapuis, Bertil and Humbert, Mathias and Bilogrevic, Igor and Huguenin, Kévin},
+    abstract = {App stores provide access to millions of different programs that users can download on their computers. Developers can also make their programs available for download on their websites and host the program files either directly on their website or on third-party platforms, such as mirrors. In the latter case, as users download the software without any vetting from the developers, they should take the necessary precautions to ensure that it is authentic. One way to accomplish this is to check that the published file's integrity verification code-the checksum-matches that (if provided) of the downloaded file. To date, however, there is little evidence to suggest that such a process is effective. Even worse, very few usability studies about it exist.
+In this article, we provide the first comprehensive study that assesses the usability and effectiveness of the manual checksum verification process. First, by means of an in-situ experiment with 40 participants and eye-tracking technology, we show that the process is cumbersome and error-prone. Second, after a 4-monthlong in-the-wild experiment with 134 participants, we demonstrate how our proposed solution-a Chrome extension that verifies checksums automatically-significantly reduces human errors, improves coverage, and has only limited impact on usability. It also confirms that, sadly, only a tiny minority of websites that link to executable files in our sample provide checksums (0.01\%), which is a strong call to action for web standards bodies, service providers, and content creators to increase the use of file integrity verification on their properties.},
+    address = {NEW YORK},
+    copyright = {Copyright 2020 Elsevier B.V., All rights reserved.},
+    issn = {2471-2566},
+    journal = {ACM transactions on privacy and security},
+    keywords = {Checksums ; Computer Science ; Computer Science, Information Systems ; Cryptography and Security ; Fisheries ; Human-Computer Interaction ; integrity ; Life Sciences & Biomedicine ; Networking and Internet Architecture ; Science & Technology ; security ; Technology ; usability ; Web ; web downloads},
+    language = {eng},
+    number = {1},
+    pages = {1-36},
+    publisher = {ASSOC COMPUTING MACHINERY},
+    title = {A Study on the Use of Checksums for Integrity Verification of Web Downloads},
+    volume = {24},
+    year = {2020},
+}
 
 @online{AnsibleDocs,
     title = {Ansible Documentation},
@@ -93,4 +126,13 @@ Learn best practices and procedures to make your Linux environment automatableWh
     url = {https://docs.ansible.com/},
     urldate = {2022-02-06},
     langid = {english}
+}
+
+@online{Sha256sumManPage,
+    author = {Ulrich Drepper, Scott Miller, David Madore},
+    title = {sha256sum(1) - Linux man page},
+    date = {2022-02-20},
+    url = {https://linux.die.net/man/1/sha256sum},
+    urldate = {2022-02-20},
+    langid = {english},
 }

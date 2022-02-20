@@ -1,0 +1,4 @@
+- name: Download file
+  get_url:
+    url: https://example.com/path/file.txt
+    dest: /tmp/file.txt
