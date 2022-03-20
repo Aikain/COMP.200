@@ -1,1 +1,78 @@
-TODO: liite?
+\begin{lstlisting}[
+    basicstyle=\small,
+    label={lst:ansible-lint-example},
+    breaklines=true,
+]
+WARNING  Listing 20 violation(s) that are fatal
+no-handler: Tasks that run when changed should likely be handlers
+hcloud_roles/hcloud_server/tasks/main.yml:114 Task/Handler: Gather facts
+
+no-handler: Tasks that run when changed should likely be handlers
+hcloud_roles/hcloud_server/tasks/main.yml:119 Task/Handler: Discord notification
+
+risky-file-permissions: File permissions unset or incorrect
+roles/address_checker/tasks/main.yml:13 Task/Handler: DB volume directory
+
+risky-file-permissions: File permissions unset or incorrect
+roles/<sensuroitu>/tasks/main.yml:14 Task/Handler: Database volume directory
+
+risky-file-permissions: File permissions unset or incorrect
+roles/<sensuroitu>/tasks/main.yml:13 Task/Handler: Database volume directory
+
+risky-file-permissions: File permissions unset or incorrect
+roles/<sensuroitu>/tasks/main.yml:15 Task/Handler: Database volume directory
+
+risky-file-permissions: File permissions unset or incorrect
+roles/config/tasks/main.yml:15 Task/Handler: DB volume directory
+
+risky-file-permissions: File permissions unset or incorrect
+roles/gitlab/tasks/main.yml:7 Task/Handler: Volume directories
+
+risky-file-permissions: File permissions unset or incorrect
+roles/keycloak/tasks/main.yml:13 Task/Handler: Create directories
+
+risky-file-permissions: File permissions unset or incorrect
+roles/lhci/tasks/main.yml:6 Task/Handler: Volume directories
+
+unnamed-task: All tasks should be named
+roles/nextcloud/tasks/groupfolders.yml:7 Task/Handler: set_fact groupfolders={{ groupfolder_info.stdout | from_json }}
+
+unnamed-task: All tasks should be named
+roles/nextcloud/tasks/groupfolders.yml:21 Task/Handler: set_fact groupfolders={{ groupfolder_info.stdout | from_json }}
+
+no-changed-when: Commands should not change things if nothing needs doing
+roles/nextcloud/tasks/groupfolders.yml:24 Task/Handler: Update group folder's group
+
+no-changed-when: Commands should not change things if nothing needs doing
+roles/nextcloud/tasks/groupfolders.yml:28 Task/Handler: Update group folder's quota
+
+risky-file-permissions: File permissions unset or incorrect
+roles/nextcloud/tasks/main.yml:39 Task/Handler: Volume directories
+
+empty-string-compare: Don't compare to empty string
+roles/nextcloud/tasks/main.yml:146 Task/Handler: Set up config owne
+
+empty-string-compare: Don't compare to empty string
+roles/nextcloud/tasks/main.yml:179 Task/Handler: Set up plugin config owner
+
+risky-file-permissions: File permissions unset or incorrect
+roles/<sensuroitu>/tasks/main.yml:17 Task/Handler: Database volume directory
+
+command-instead-of-shell: Use shell only when shell functionality is required
+roles/uisp/tasks/main.yml:9 Task/Handler: Run install script
+
+no-changed-when: Commands should not change things if nothing needs doing
+roles/uisp/tasks/main.yml:9 Task/Handler: Run install script
+
+You can skip specific rules or tags by adding them to your configuration file:
+# .ansible-lint
+warn_list:  # or 'skip_list' to silence them completely
+- command-instead-of-shell  # Use shell only when shell functionality is required
+- empty-string-compare  # Don't compare to empty string
+- experimental  # all rules tagged as experimental
+- no-changed-when  # Commands should not change things if nothing needs doing
+- no-handler  # Tasks that run when changed should likely be handlers
+- unnamed-task  # All tasks should be named
+
+Finished with 10 failure(s), 10 warning(s) on 253 files.
+\end{lstlisting}

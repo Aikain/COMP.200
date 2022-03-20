@@ -1,0 +1,14 @@
+stages:
+  - lint
+
+lint:ansible:
+  stage: lint
+  image: python:3-slim
+  before_script:
+    - pip3 install -r requirements.txt
+  script:
+    - ansible-lint -f codeclimate > codeclimate.json
+  allow_failure: true
+  artifacts:
+    reports:
+      codequality: codeclimate.json
