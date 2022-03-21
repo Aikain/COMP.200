@@ -1,0 +1,3 @@
+- name: Install figlet
+  apt:
+    name: figlet

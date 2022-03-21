@@ -1,1 +1,258 @@
-TODO: yleistä
+Ansible on yksi monista eri vaihtoehdoista toteuttaa infrastruktuuri koodina.
+Tässä kappaleessa esitellään lyhyesti mitä infrastruktuuri koodina on ja
+mitä eri vaihtoehtoja on. Tämän lisäksi käydään läpi Ansiblen perusteita,
+joiden tietäminen on välttämätöntä myöhempien lukujen kannalta.
+TODO: lähteet
+
+\section{Infrastruktuuri koodina}
+
+Infratruktuuri koodina on nimensä mukaisesti sitä, että infrastruktuuri
+muodostetaan koodin pohjalta. Lähtökohtaisesti ympäristö on tällöin
+luotu automaattisesti ja määritellyllä tavalla, joka on mahdollista
+toteuttaa uudelleen samanlaisena. Infrastruktuurin toteuttamienn koodin
+avulla mahdollistaa koko infrastruktuurin dokumennoin toteutuksen ohessa
+eikä jätä ympäristöön liittyviä asioita tekijän muistin varaan.
+TODO: lähteet
+
+Tunnettuja IaC-ratkaisuja ovat mm. Ansible, Puppet, Chef, SaltStack ja
+Terraform. Idea eri ratkaisuissa on pääpiirteittä sama. Suurimpia eroja
+tuvoat kieli, jolla ratkaisu on toteutettu sekä ajamisessa käytettävä
+metodi. Osa ratkaisuista, kuten cef ja puppet, suosivat veto-metodia
+kun puolestaan Ansible ja Terraform työntö-metodia. Veto-metodissa
+käyttäjä suorittaa ohjelman kohdepalvelimella, joka hakee tarvittavat
+määritykset hallintapalvelimelta. Työntö-metodissa puolestaan ohjelma
+ottaa yhteyden palvelimille.
+TODO: lähteet
+
+\section{Ansiblen asennus ja käyttö}
+
+Versiosta 2.10 alkaen Ansible on jakautunut kahteen eri pakettiin:
+ansible ja ansible-core. Varsinainen Ansiblen ydin löytyy ansible-core
+-paketista. Ansible paketti puolestaan sisältää yhteisön tarjoaman
+valmiin kattauksen moduuleja, joita voidaan käyttää eri tehtävissä.
+\parencite{AnsibleDocs}
+
+Ansible tarvitsee toimiakseen pythonin, joten käyttöjärjestelmästä
+löytyy todennäköisesti myös pip, jolla Ansiblen asennus onnistuu
+vaivattomasti:
+TODO: lähteet
+
+\begin{lstlisting}[
+    basicstyle=\small,
+    label={lst:install-ansible},
+    language=bash
+]
+    $ pip3 install ansible
+\end{lstlisting}
+
+Tämän jälkeen voidaan toiminnallisuus testata esim.
+TODO: lähteet
+
+\begin{lstlisting}[
+    basicstyle=\small,
+    label={lst:ansible-ping},
+    language=bash
+]
+    $ ansible localhost -m ping
+\end{lstlisting}
+
+\subsection{Inventaario}
+
+Ansiblella hallittavat palvelimet luetteloidaan inventaariossa.
+Yksinkertaisimmillaan inventaario sisältää listan palvelimien nimistä:
+TODO: lähteet
+
+\begin{lstlisting}[
+    basicstyle=\small,
+    label={lst:ansible-inventory},
+    language=ini
+]
+    mail.example.com
+
+    [webservers]
+    foo.example.com
+    bar.example.com
+
+    [dbservers]
+    one.example.com
+    two.example.com
+    three.example.com
+\end{lstlisting}
+
+Inventaariot voivat myös olla dynaamisia. Tällöin lista palvelimista
+voidaan hakea esimerkiksi palveluntarjoajan APIsta, kuten Hetzner Cloudin
+palvelimet saadaan haettua käytätmällä hetzner.hcloud.hcloud-inventaariota.
+TODO: lähteet
+
+\subsection{Playbookit ja tehtävät}
+
+Ansiblessa suoritaan yksittäisiä pieniä tehtäviä, joita peräkkäin ajamalla
+saadaan toteutettua kokonaisuuksia. Tehtävät käyttävät jotain asennettua
+moduulia. Esimerkissä \ref{lst:ansible-apt-figlet} käytetään apt-moduulia,
+jolla saadaan asennettua määritelty paketti. Esimerkin mukaisesti tehtäville
+annetaan kuvaava nimi, joka tulee näkymään myöhemmin ulostulossa kun
+tehtäviä ajetaan.
+TODO: lähteet
+
+\lstinputlisting[
+    basicstyle=\small,
+    caption={Figlet-ohjelman asentaminen Ansiblen apt-moduulilla},
+    label={lst:ansible-apt-figlet},
+]{code/install-figlet.yaml}
+
+Playbookit puolestaan määrittelevät mitä tehtäviä ajetaan minnekkin.
+TODO: lähteet
+
+\lstinputlisting[
+    basicstyle=\small,
+    caption={Esimerkki playbookista},
+    label={lst:ansible-playbook},
+]{code/playbook-example.yaml}
+
+Ylläolevassa esimerkissä on määritelty ajettavaksi hcloud-ryhmälle, joka
+on saadaan haettua inventaariosta, ensimmäisenä yksittäinen tehtävä ja
+tämän jälkeen kaksi roolia.
+TODO: lähteet
+
+Playbook saadaan ajettua ansible-playbook -komennolla:
+TODO: lähteet
+
+\begin{lstlisting}[
+    basicstyle=\small,
+    label={lst:run-ansible-playbook},
+    language=bash
+]
+    $ ansible-playbook -i inventory.ini playbook.yml
+\end{lstlisting}
+
+\subsection{Roolit, sapluunat ja käsittelijät}
+
+Yksittäisten tehtävien kirjoittamisen sisään on mahdollista tehdä rooleja,
+jotka sisältävän useita tehtäviä ja muita niiden tarvitsemia asioita, kuten
+sapluunoita (template) tai käsittelöitä (handlers). Samaa roolia voidaan
+käyttää myös useissa eri playbookeissa, jolloin rooleilla saadaan muodostettua
+pieniä kokonaisuuksia, joita yhdistelemällä saadaan muodostettua koko
+kokonaisuus. Roolin kansio rakenne on alla olevan esimerkin mukainen:
+TODO: lähteet
+
+\begin{lstlisting}[
+    basicstyle=\small,
+    label={lst:ansible-role-structure},
+]
+    roles/
+        example-role/
+            tasks/
+            handlers/
+            library/
+            files/
+            templates/
+            vars/
+            defaults/
+            meta/
+\end{lstlisting}
+
+Yksinkertaisimmillaan rooli sisältää vain tasks-kansion, jossa on määritelty
+main.yml-tiedosto, joka sisältää kaikki roolin ajettavat tehtävät. Rooli
+voi siis käytännössä olla vain yksi tehtävä, kuten aiemmin esitelty esimerkki
+yksittäisestä tehtävästä \ref{lst:ansible-apt-figlet}.
+TODO: lähteet
+
+Roolit voivat sisältää myös muita hyödyllisiä työkaluja, kuten sapluunoita tai
+käsittelijäitä. Sapluunoiden avulla voidaan rakentaa esimerkiksi ohjelma
+asetustiedostolle pohja, johon täytetään tiedot palvelinkohtaisesti. Sapluuna
+muodostetaan jinja2-kieltä käyttämällä.
+TODO: lähteet
+
+\lstinputlisting[
+    basicstyle=\small,
+    caption={Esimerkki käyttäjän ssh-avaimien listaamisesta (authorized_keys)},
+    label={lst:template-example},
+]{code/template-example.j2}
+
+Jinja2-kieli tukee datan yksinkertaista käsittelyä, kuten ylläolevan esimerkin
+mukaisesti listojen läpi käyntiä. Sapluunoja käytetään template-moduulin avulla,
+josta on esimerkki käsittelijä-esimerkin yhteydessä \ref{lst:handler-task-example}.
+TODO: lähteet
+
+Ohjelmien asennus voi vaatia useita pieniä tehtäviä, jotka kaikki ovat
+tarpeellisia, jotta ohjelma toimii oikein. Tällöin ohjelman käynistämistä ei
+voida välttämättä toteuttaa ennen kuin kaikki tehtävät ovat suoritettu.
+Tällöin on mahdollista merkitävä tehtäville käsittelijä. Käsittelijä ajetaan
+vasta kun kaikki tehtävät ovat suoritettu. Yleinen käyttö käsittelijöille
+on nimenomaan asetustiedostojen yhteydessä. Käsittelijä ajetaan vain jos
+tehtävä, johon se on liitetty, tekee muutoksia. Tällöin voidaan esimerkiksi
+käynnistää ohjelma uusiksi mikäli asetustiedostossa on muutoksia ja ohjelma
+tarvitsee uudelleenkäynnistyksen ladatakseen uudet muutokset.
+TODO: lähteet
+
+Käsittelijä laitetaan handlers-kansioon main.yml-tiedostoon:
+TODO: lähteet
+
+\lstinputlisting[
+basicstyle=\small,
+caption={Esimerkki käsittelijän toteuttamisesta},
+label={lst:handler-example},
+]{code/handler-example.yaml}
+
+jonka jälkeen käsittelijää voidaan käyttää tehtävän yhteydessä notify-avainsanan
+avulla:
+TODO: lähteet
+
+\lstinputlisting[
+    basicstyle=\small,
+    caption={Esimerkki käsittelijän toteuttamisesta},
+    label={lst:handler-task-example},
+]{code/handler-task-example.yaml}
+
+\subsection{Muuttujat ja holvi}
+
+Ansiblessa tietoa säilytään muuttujiin. Muuttujia on mahdollista määrittää monella
+eri tavalla. Muuttujat voivat olla määritelty esimerkiksi roolissa, inventorissa
+tai playbookissa ja ne voivat kohdistua tiettyyn palvelimeen tai palvelimien
+muodostomaan ryhmään.
+TODO: lähteet
+
+Muuttujiin saatetaan kuitenkin haluta määritellä salasanoja tai muida arkaluontoisia
+tietoja. Jotta arkaluontoiset tiedot saadaan salattua, voidaan käyttään Ansiblen
+tarjoamaa holvia.
+TODO: lähteet
+
+\begin{lstlisting}[
+    basicstyle=\small,
+    label={lst:ansible-vault},
+    language=bash
+]
+    $ pwgen -s 77 1 | tr -d '\n' | ansible-vault encrypt_string --vault-password-file ansible-vault.secret --encrypt-vault-id default
+    Reading plaintext input from stdin. (ctrl-d to end input, twice if your content does not already have a newline)
+
+    !vault |
+              $ANSIBLE_VAULT;1.1;AES256
+              35386463646565363564613139313238313566386438313961356238363563303363643561613032
+              3766396465343033666335333335396265353938393536360a633761363030373030376139363165
+              32656561366462333536313631353361633164613263343334633030386536333263613534643631
+              3331633664396532620a323439626639376666333634333536346131366462303661313036393161
+              62313036313831303962613866343134393439326538386665633436306562663330366535666365
+              63323230396463613336363333303230353133343961343632326364613330333566373664313361
+              35613561633036383865383261353639663938333961643664633437366236356330353939623039
+              33373662666237636633
+    Encryption successful
+
+\end{lstlisting}
+
+Ylläolevassa esimerkissä generoidaan satunnainen 77-merkkinen salasana, joka
+sen jälkeen välitetään ansible-vault -komennolle, joka salaa generoidun
+salasanan ansible-vault.secret -tiedoston avulla. Tämän jälkeen salattua tietoa
+voidaan käyttää muuttujien sisältönä:
+TODO: lähteet
+
+\lstinputlisting[
+    basicstyle=\small,
+    caption={Muuttujien määrittely},
+    label={lst:var-example},
+]{code/var-example.yaml}
+
+Kunhan vain Ansible pystyy saamaan tiedoston, jonka avulla salaus toteutettiin,
+pystyy Ansible purkamaan salaisuuden ajon yhteydessä. Nyt on vain huolehdisttava
+salaamisessa käytettävän tiedoston välittömisestä kaikille sitä tarvitseville ja
+kaikki muut salaisuudet voivat olla versionhallinnassa.
+TODO: lähteet

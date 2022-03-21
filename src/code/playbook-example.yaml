@@ -1,0 +1,10 @@
+- hosts: hcloud
+  pre_tasks:
+    - name: Install figlet
+      apt:
+        name: figlet
+  roles:
+    - role: timezone
+      tags: timezone
+    - role: motd
+      tags: motd
