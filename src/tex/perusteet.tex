@@ -1,5 +1,5 @@
 Ansible on yksi monista eri vaihtoehdoista toteuttaa infrastruktuuri koodina.
-Tässä kappaleessa esitellään lyhyesti mitä infrastruktuuri koodina on ja
+Tässä luvussa esitellään lyhyesti, mitä infrastruktuuri koodina on ja
 mitä eri vaihtoehtoja on. Tämän lisäksi käydään läpi Ansiblen perusteita,
 joiden tietäminen on välttämätöntä myöhempien lukujen kannalta.
 TODO: lähteet
@@ -8,16 +8,16 @@ TODO: lähteet
 
 Infratruktuuri koodina on nimensä mukaisesti sitä, että infrastruktuuri
 muodostetaan koodin pohjalta. Lähtökohtaisesti ympäristö on tällöin
-luotu automaattisesti ja määritellyllä tavalla, joka on mahdollista
+luotu automaattisesti ja määritellyllä tavalla, ja se on mahdollista
 toteuttaa uudelleen samanlaisena. Infrastruktuurin toteuttamienn koodin
 avulla mahdollistaa koko infrastruktuurin dokumennoin toteutuksen ohessa
 eikä jätä ympäristöön liittyviä asioita tekijän muistin varaan.
 TODO: lähteet
 
-Tunnettuja IaC-ratkaisuja ovat mm. Ansible, Puppet, Chef, SaltStack ja
-Terraform. Idea eri ratkaisuissa on pääpiirteittä sama. Suurimpia eroja
+Tunnettuja IaC-ratkaisuja ovat muun muassa Ansible, Puppet, Chef, SaltStack
+ja Terraform. Idea eri ratkaisuissa on pääpiirteittä sama. Suurimpia eroja
 tuvoat kieli, jolla ratkaisu on toteutettu sekä ajamisessa käytettävä
-metodi. Osa ratkaisuista, kuten cef ja puppet, suosivat veto-metodia
+metodi. Osa ratkaisuista, kuten cef ja puppet, suosivat veto-metodia,
 kun puolestaan Ansible ja Terraform työntö-metodia. Veto-metodissa
 käyttäjä suorittaa ohjelman kohdepalvelimella, joka hakee tarvittavat
 määritykset hallintapalvelimelta. Työntö-metodissa puolestaan ohjelma
@@ -27,13 +27,13 @@ TODO: lähteet
 \section{Ansiblen asennus ja käyttö}
 
 Versiosta 2.10 alkaen Ansible on jakautunut kahteen eri pakettiin:
-ansible ja ansible-core. Varsinainen Ansiblen ydin löytyy ansible-core
--paketista. Ansible paketti puolestaan sisältää yhteisön tarjoaman
-valmiin kattauksen moduuleja, joita voidaan käyttää eri tehtävissä.
-\parencite{AnsibleDocs}
+ansibleen ja ansible-coreen. Varsinainen Ansiblen ydin löytyy
+ansible-core-paketista. Ansible paketti puolestaan sisältää yhteisön
+tarjoaman valmiin kattauksen moduuleja, joita voidaan käyttää eri
+tehtävissä. \parencite{AnsibleDocs}
 
-Ansible tarvitsee toimiakseen pythonin, joten käyttöjärjestelmästä
-löytyy todennäköisesti myös pip, jolla Ansiblen asennus onnistuu
+Ansible tarvitsee toimiakseen Pythonin, joten käyttöjärjestelmästä
+löytyy todennäköisesti myös Pip, jolla Ansiblen asennus onnistuu
 vaivattomasti:
 TODO: lähteet
 
@@ -45,8 +45,7 @@ TODO: lähteet
     $ pip3 install ansible
 \end{lstlisting}
 
-Tämän jälkeen voidaan toiminnallisuus testata esim.
-TODO: lähteet
+Tämän jälkeen voidaan toiminnallisuus testata esimerkiksi:
 
 \begin{lstlisting}[
     basicstyle=\small,
@@ -89,7 +88,7 @@ Ansiblessa suoritaan yksittäisiä pieniä tehtäviä, joita peräkkäin ajamall
 saadaan toteutettua kokonaisuuksia. Tehtävät käyttävät jotain asennettua
 moduulia. Esimerkissä \ref{lst:ansible-apt-figlet} käytetään apt-moduulia,
 jolla saadaan asennettua määritelty paketti. Esimerkin mukaisesti tehtäville
-annetaan kuvaava nimi, joka tulee näkymään myöhemmin ulostulossa kun
+annetaan kuvaava nimi, joka tulee näkymään myöhemmin ulostulossa kun,
 tehtäviä ajetaan.
 TODO: lähteet
 
@@ -99,7 +98,7 @@ TODO: lähteet
     label={lst:ansible-apt-figlet},
 ]{code/install-figlet.yaml}
 
-Playbookit puolestaan määrittelevät mitä tehtäviä ajetaan minnekkin.
+Playbookit puolestaan määrittelevät, mitä tehtäviä ajetaan minnekkin.
 TODO: lähteet
 
 \lstinputlisting[
@@ -108,9 +107,9 @@ TODO: lähteet
     label={lst:ansible-playbook},
 ]{code/playbook-example.yaml}
 
-Ylläolevassa esimerkissä on määritelty ajettavaksi hcloud-ryhmälle, joka
-on saadaan haettua inventaariosta, ensimmäisenä yksittäinen tehtävä ja
-tämän jälkeen kaksi roolia.
+Esimerkissä \ref{lst:ansible-playbook} on määritelty hcloud-ryhmälle, joka
+saadaan haettua inventaariosta, ajettavaksi ensimmäisenä yksittäinen tehtävä
+ja tämän jälkeen kaksi roolia.
 TODO: lähteet
 
 Playbook saadaan ajettua ansible-playbook -komennolla:
@@ -131,7 +130,8 @@ jotka sisältävän useita tehtäviä ja muita niiden tarvitsemia asioita, kuten
 sapluunoita (template) tai käsittelöitä (handlers). Samaa roolia voidaan
 käyttää myös useissa eri playbookeissa, jolloin rooleilla saadaan muodostettua
 pieniä kokonaisuuksia, joita yhdistelemällä saadaan muodostettua koko
-kokonaisuus. Roolin kansio rakenne on alla olevan esimerkin mukainen:
+kokonaisuus. Roolin kansiorakenne on esimerkin \ref{lst:ansible-role-structure}
+mukainen:
 TODO: lähteet
 
 \begin{lstlisting}[
@@ -157,27 +157,28 @@ yksittäisestä tehtävästä \ref{lst:ansible-apt-figlet}.
 TODO: lähteet
 
 Roolit voivat sisältää myös muita hyödyllisiä työkaluja, kuten sapluunoita tai
-käsittelijäitä. Sapluunoiden avulla voidaan rakentaa esimerkiksi ohjelma
+käsittelijöitä. Sapluunoiden avulla voidaan rakentaa esimerkiksi ohjelman
 asetustiedostolle pohja, johon täytetään tiedot palvelinkohtaisesti. Sapluuna
 muodostetaan jinja2-kieltä käyttämällä.
 TODO: lähteet
 
 \lstinputlisting[
     basicstyle=\small,
-    caption={Esimerkki käyttäjän ssh-avaimien listaamisesta (authorized\_keys)},
+    caption={Esimerkki käyttäjän ssh-avaimien listaamisesta},
     label={lst:template-example},
 ]{code/template-example.j2}
 
-Jinja2-kieli tukee datan yksinkertaista käsittelyä, kuten ylläolevan esimerkin
-mukaisesti listojen läpi käyntiä. Sapluunoja käytetään template-moduulin avulla,
-josta on esimerkki käsittelijä-esimerkin yhteydessä \ref{lst:handler-task-example}.
+Jinja2-kieli tukee datan yksinkertaista käsittelyä, kuten esimerkin
+\ref{lst:template-example} mukaisesti listojen läpi käyntiä. Sapluunoja
+käytetään template-moduulin avulla, josta on esimerkki käsittelijä-esimerkin
+yhteydessä \ref{lst:handler-task-example}.
 TODO: lähteet
 
 Ohjelmien asennus voi vaatia useita pieniä tehtäviä, jotka kaikki ovat
 tarpeellisia, jotta ohjelma toimii oikein. Tällöin ohjelman käynistämistä ei
-voida välttämättä toteuttaa ennen kuin kaikki tehtävät ovat suoritettu.
+voida välttämättä toteuttaa ennen kuin kaikki tehtävät on suoritettu.
 Tällöin on mahdollista merkitävä tehtäville käsittelijä. Käsittelijä ajetaan
-vasta kun kaikki tehtävät ovat suoritettu. Yleinen käyttö käsittelijöille
+vasta, kun kaikki tehtävät ovat suoritettu. Yleinen käyttö käsittelijöille
 on nimenomaan asetustiedostojen yhteydessä. Käsittelijä ajetaan vain jos
 tehtävä, johon se on liitetty, tekee muutoksia. Tällöin voidaan esimerkiksi
 käynnistää ohjelma uusiksi mikäli asetustiedostossa on muutoksia ja ohjelma
@@ -188,9 +189,9 @@ Käsittelijä laitetaan handlers-kansioon main.yml-tiedostoon:
 TODO: lähteet
 
 \lstinputlisting[
-basicstyle=\small,
-caption={Esimerkki käsittelijän toteuttamisesta},
-label={lst:handler-example},
+    basicstyle=\small,
+    caption={Esimerkki käsittelijän toteuttamisesta},
+    label={lst:handler-example},
 ]{code/handler-example.yaml}
 
 jonka jälkeen käsittelijää voidaan käyttää tehtävän yhteydessä notify-avainsanan
@@ -206,7 +207,7 @@ TODO: lähteet
 \subsection{Muuttujat ja holvi}
 
 Ansiblessa tietoa säilytään muuttujiin. Muuttujia on mahdollista määrittää monella
-eri tavalla. Muuttujat voivat olla määritelty esimerkiksi roolissa, inventorissa
+eri tavalla. Muuttujat on voitu määritellä esimerkiksi roolissa, inventorissa
 tai playbookissa ja ne voivat kohdistua tiettyyn palvelimeen tai palvelimien
 muodostomaan ryhmään.
 TODO: lähteet
@@ -243,8 +244,8 @@ TODO: lähteet
 
 \end{lstlisting}
 
-Ylläolevassa esimerkissä generoidaan satunnainen 77-merkkinen salasana, joka
-sen jälkeen välitetään ansible-vault -komennolle, joka salaa generoidun
+Esimerkissä \ref{lst:ansible-vault} generoidaan satunnainen 77-merkkinen salasana,
+joka sen jälkeen välitetään ansible-vault -komennolle, joka salaa generoidun
 salasanan ansible-vault.secret -tiedoston avulla. Tämän jälkeen salattua tietoa
 voidaan käyttää muuttujien sisältönä:
 TODO: lähteet

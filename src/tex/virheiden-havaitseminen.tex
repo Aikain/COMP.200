@@ -36,7 +36,7 @@ tiedostot ansible-projektista \parencite{AnsibleLintReadTheDocs}:
     $ ansible-lint
 \end{lstlisting}
 
-Komennon antama ulostulo voi näyttää alla olevan esimerkin mukaiselta.
+Komennon antama ulostulo voi näyttää esimerkin \ref{lst:ansible-lint-simple-example} mukaiselta.
 
 \begin{lstlisting}[
     basicstyle=\small,
@@ -50,6 +50,8 @@ Komennon antama ulostulo voi näyttää alla olevan esimerkin mukaiselta.
     roles/address_checker/tasks/main.yml:13 Task/Handler: DB volume directory
 \end{lstlisting}
 
+Kattavampi ulostulo on esitelty liitteessä \ref{lst:ansible-lint-example}.
+
 \subsection{Automaattinen ajaminen Gitlab CI:n avulla}
 
 Gitlabia tietovarastona (repository) käyttävät ohjelmistoprojektit voivat käyttää
@@ -57,12 +59,13 @@ jatkuvan integraation suorittamiseen Gitlab CI/CD:ta. Gitlab CI/CD perustuu
 avoimeen lähdekoodiin ja sen ilmainen versio on ollut jo aikoinaan parhaimpia ja
 kattavampia. \parencite{alma9911268330505973}
 
-Yleisesti tunnettuja vaihtoehtoisia ratkaisuja ovat mm. Github Actions, Travis CI,
-CircleCI ja Jenkins.
+Yleisesti tunnettuja vaihtoehtoisia ratkaisuja ovat muun muassa Github Actions,
+Travis CI, CircleCI ja Jenkins.
 
 Gitlab CI:ssa tarvittavat määritykset laitetaan `.gitlab-ci.yml`-tiedostoon
-\parencite{GitlabCICDDocs}. Alla on esitelty yksinkertainen vaihtoehto, jolla
-saadaan ajettua `ansible-lint` automaattisesti jokaisen muutoksen myötä.
+\parencite{GitlabCICDDocs}. Esimerkissä \ref{lst:gitlab-ci-ansible-lint} esitelty
+yksinkertainen vaihtoehto, jolla saadaan ajettua `ansible-lint` automaattisesti
+jokaisen muutoksen myötä.
 
 \lstinputlisting[
     basicstyle=\small,
@@ -78,7 +81,7 @@ ratkaisu.
 \subsection{Tulosten näyttäminen Gitlabissa}
 
 Gitlab CI vertailee koodinlaatu raportteja eri haarojen välillä ja näyttää
-tulokset merge requesteissa \parencite{GitlabCICDDocs}. Alla olevassa kuvassa on
+tulokset merge requesteissa \parencite{GitlabCICDDocs}. Kuvassa on
 näytetty esimerkki siitä, kun koodinlaatu paranee muutosten myötä.
 
 %\begin{subfigure}{0.49\textwidth}
@@ -87,6 +90,7 @@ näytetty esimerkki siitä, kun koodinlaatu paranee muutosten myötä.
         width=\textwidth
     ]{figures/gitlab-code-quality-improved.png}}
 {Kuva. Koodinlaadun parantuminen tehtyjen muutosten myötä.}
+\caption{test}
 %\end{subfigure}
 
 On hyvä huomioida, että kohdehaarassa tulee olla muodostettu vastaava

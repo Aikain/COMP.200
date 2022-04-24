@@ -1,7 +1,7 @@
 Tässä luvussa käsitellään joitakin havaittuja virheitä, joita käyttäjä on mahdollisesti
 voinut tehdä käyttäessään Ansiblela. Kappaleessa esitetyt virheet ovat esimerkkejä
 mahdollisista virheistä, joita on tutkimussa \parencite{RahmanAkond2021SSiA,
-RahmanAkond2019TSSS, KumaraIndika2021Tdad} havaittu useita kertoja.
+    RahmanAkond2019TSSS, KumaraIndika2021Tdad} havaittu useita kertoja.
 
 \section{Tietoturvahajut}
 
@@ -21,9 +21,9 @@ kirjoitetaan suoraan tehtävän yhteydeen ja on kenen tahansa luettavissa, joka 
 koodiin. Ongelma on havannollistettu esimerkissä  \ref{lst:hardcoded-secret}.
 
 \lstinputlisting[
-  basicstyle=\small,
-  caption={Esimerkki kovakoodatusta salasanasta},
-  label={lst:hardcoded-secret}
+    basicstyle=\small,
+    caption={Esimerkki kovakoodatusta salasanasta},
+    label={lst:hardcoded-secret}
 ]{code/hardcoded-secret.yaml}
 
 Yksinkertaisuutensa vuoksi ei ole yllättävää, että salasanat tulee helposti kovakoodattua
@@ -38,9 +38,9 @@ ei salaisuutta pysty suorilta käsiltä näkemään. Salaisuus ei ole myöskää
 ohjelmallisesti ilman salauksen purkamiseen tarvittavaa avainta.
 
 \lstinputlisting[
-  basicstyle=\small,
-  caption={Esimerkki Ansible Vaultilla suojatusta salaisuudesta},
-  label={lst:secret-with-ansible-vault},
+    basicstyle=\small,
+    caption={Esimerkki Ansible Vaultilla suojatusta salaisuudesta},
+    label={lst:secret-with-ansible-vault},
 ]{code/secret-with-ansible-vault.yaml}
 
 Mahdollisen syyn kovakoodatuille salaisuuksille voivat muodostaa salaisuuksien salaamisen
@@ -67,9 +67,9 @@ tällaisesta oletuksesta on mahdollista toteuttaa esimerkin
 puuttumista, mikäli ei ole perehtynyt tarkemmin dokumentaatioon, jossa se mainitaan.
 
 \lstinputlisting[
-  basicstyle=\small,
-  caption={Esimerkki tiedoston lataamisesta ilman tarkistussummaa},
-  label={lst:file-download-without-checksum},
+    basicstyle=\small,
+    caption={Esimerkki tiedoston lataamisesta ilman tarkistussummaa},
+    label={lst:file-download-without-checksum},
 ]{code/file-download-without-checksum.yaml}
 
 Tarkistussumman lisääminen on tehty monesti hyvinkin yksinkertaisesti. Aiempaan esimerkkiin
@@ -77,18 +77,18 @@ Tarkistussumman lisääminen on tehty monesti hyvinkin yksinkertaisesti. Aiempaa
 yksittäinen rivi, kuten esimerkissä \ref{lst:file-download-with-checksum} näytetään.
 
 \lstinputlisting[
-  basicstyle=\small,
-  caption={Esimerkki tiedoston lataamisesta tarkistussummalla},
-  label={lst:file-download-with-checksum},
+    basicstyle=\small,
+    caption={Esimerkki tiedoston lataamisesta tarkistussummalla},
+    label={lst:file-download-with-checksum},
 ]{code/file-download-with-checksum.yaml}
 
 Mikäli tarkistussummaa ei tarjota valmiiksi, voi sen esimerkiksi generoida siihen tehdyllä
 komennolla \parencite{Sha256sumManPage}.
 
 \begin{lstlisting}[
-  basicstyle=\small,
-  label={lst:sha256sum-example},
-  language=bash
+    basicstyle=\small,
+    label={lst:sha256sum-example},
+    language=bash
 ]
     $ sha256sum example.txt
 \end{lstlisting}
@@ -122,9 +122,9 @@ Ensimmäinen ja neljäs tehtävä tekevätkin tämän, mikäli annetussa imagess
 versionumeroa.
 
 \lstinputlisting[
-  basicstyle=\small,
-  caption={Lhcin asentamiseen tarvittavat tehtävät},
-  label={lst:lhci-role-tasks},
+    basicstyle=\small,
+    caption={Lhcin asentamiseen tarvittavat tehtävät},
+    label={lst:lhci-role-tasks},
 ]{code/lhci-role-tasks.yaml}
 
 Ei kuitenkaan ole tarvetta määritellä volumeja uudelleen joka kerta, joten riittää vain
@@ -132,9 +132,9 @@ ensimmäisen ja neljännen tehtävän ajaminen. Tämän saamme tehtyä määritt
 näkyvät `tags`-attribuutit ja rajaamalla ajaessa:
 
 \begin{lstlisting}[
-  basicstyle=\small,
-  label={lst:ansible-playbook-with-tags},
-  language=bash
+    basicstyle=\small,
+    label={lst:ansible-playbook-with-tags},
+    language=bash
 ]
     $ ansible-playbook ... -t lhci_upgrade
 \end{lstlisting}
@@ -152,7 +152,7 @@ Esimerkissä \ref{lst:violating-idempotence} on yksinkertainen esimerkki `rm`-ko
 korvaamisesta `file`-moduulilla.
 
 \lstinputlisting[
-  basicstyle=\small,
-  caption={Lhcin asentamiseen tarvittavat tehtävät},
-  label={lst:violating-idempotence},
+    basicstyle=\small,
+    caption={Lhcin asentamiseen tarvittavat tehtävät},
+    label={lst:violating-idempotence},
 ]{code/violating-idempotence.yaml}
