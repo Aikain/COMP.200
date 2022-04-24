@@ -1,1 +1,31 @@
-TODO: yhteenveto
+Tässä työssä perehdyttiin useissa tutkimuksissa havattuihin mahdollisiin
+virheitä kun toteutetaan infrastruktuuri koodina. Työssä tarkasteltiin
+nimenomaan Ansiblen näkökulmasta havattuja virheitä ja esiteltiin ratkaisuja
+niihin. Merkittävimmät virheet tulivat ilmi tietoturvahajuja toteuttaneista
+tutkimuksista. Muut esitellyt virheet ovat lähtöisin Ansiblelle määritellyistä
+huonoista käytännöistä.
+
+Tietoturvahajuissa useita kertoja esiintyneitä virheitä olivat kovakoodatut
+salaisuudet ja eheystarkistuksen puuttminen. Huonoissa käytönnöissä puolestaan
+riittämätön modulaarisuus ja idempotenssin rikkominen. Kovakoodattuihin
+salaisuuksiin ratkaisu löytyy Ansiblen holvi-toiminnallisuudesta.
+Eheystarkistuksille puolestaan tuki löytyy suoraan moduuleihin
+sisäänrakennettuna ja vaatii vain sen käyttämisen. Huonot käytännöt ovat
+puolestaan ovat kiinni tehdyistä ratkaisuista. Asioita voidaan tehdä
+usealla tavalla, joista tietyissä on ongelmia, joita tulisi välttää.
+
+Tietoturvahajuja ja joitakin huonoja käytänteitä voidaan havaita
+automaattisilla työkaluilla. Tietoturvahajuihin keskittyneissä
+tutkimussa käytettiin tutkielmien yhteydessä tehtyjä työkaluja.
+Kyseiset työkalut eivät kuitenkaan olleet yksinkertaisesti saatavilla,
+joten tutkielmassa esiteltiin Will Thamesin luoma työkalu, joka on
+nykyisin Ansiblen yhteisö tiimin jatkokehittämä työkalu ja yleisesti
+tunnettu hyvänä ratkaisuna Ansiblen kanssa käytettäväksi.
+
+Vaikka yleisesti IaC:ta pidetään hyvänä ratkaisuna infrastruktuurien
+rakentamisessa, on hyvä huomioida, että keinot, joilla pystytään
+tekemään pienellä vaivalla paljon asioita, mahdollistavat myös pienillä
+virheillä suuren määrän virheitä. On hyvä tietää joistakin yleisimmistä
+virheistä ja mahdollisista keinoista havaita niitä. Tänä päivänä keinoja
+on monia erinlaisten ratkaisujen kehittyessä ja eri ympäristöjen rakentaessa
+tukea yhä useammille työkaluille.
