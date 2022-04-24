@@ -1,0 +1,7 @@
+- name: Don't do this
+  ansible.builtin.command: rm /tmp/example.txt
+
+- name: Do this
+  ansible.builtin.file:
+    path: /tmp/example.txt
+    state: absent

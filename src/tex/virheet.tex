@@ -1,11 +1,14 @@
 Tässä luvussa käsitellään joitakin havaittuja virheitä, joita käyttäjä on mahdollisesti
-voinut tehdä käyttäessään Ansiblela. Suuri painotus virheissä on nimenomaan
-tietoturvahajuilla. Kappaleessa esitetyt virheet ovat esimerkkejä mahdollisista
-virheistä, joita on havaittu useita kertoja. Lista ei ole milään tavoin kaikenkattava.
+voinut tehdä käyttäessään Ansiblela. Kappaleessa esitetyt virheet ovat esimerkkejä
+mahdollisista virheistä, joita on tutkimussa \parencite{RahmanAkond2021SSiA,
+RahmanAkond2019TSSS, KumaraIndika2021Tdad} havaittu useita kertoja.
 
 \section{Tietoturvahajut}
 
-TODO: jotain yleistä tietoturvahajuista
+Tietoturvahajulla tarkoitetaan toistuvia koodausmalleja, jotka heikentävät turvallisuutta
+\parencite{RahmanAkond2021SSiA}. IaC:n modulaarisen luonteen vuoksi huono ratkaisu voi
+toistua varsinaisessa ympäristöissä useita kertoja, vaikka olisikin määritelyt vain
+kerran.
 
 \subsection{Kovakoodatut salaisuudet}
 
@@ -95,6 +98,61 @@ jos tiedosto saadaan korruptoitua, voidaan myös tarkistussumma korruptoida. Tä
 olla suositeltavaa määritellä yksittäisen tiedoston latauksessa tarkistussumma suoraan kuten
 esimerkissä \ref{lst:file-download-with-checksum} ilman että tarkistussummakin haetaan muualta.
 
-\section{Muita virheitä}
+\section{Huonoja käytäntöjä}
 
-asdf
+Monesti esitellään hyviä ja huonoja käytäntöjä, miten asioita tulisi tehdä. Virheitä
+tarkastellessa haluamme kiinnittää huomioita erityisesti huonoihin käytäntöihin, joita
+voi mahdollisesti esiintyä tehdyissä ratkaisussa. Esimerkkejä huonoista käytännöistä
+Ansiblella on muun muuassa riittämötän modulaarisuus ja idempotenssin rikkominen.
+
+\subsection{Riittämätön modulaarisuus}
+
+Ansiblessa on mahdollista määritellä suoraan yksittäisiä tehtäviä playbookeissa ajettavaksi
+\parencite{AnsibleDocs}. On kuitenkin suositeltavaa, että tehtäviä ei käytetä ilman rooleja,
+jotta koodista saadaan modulaarisempaa. Yleisesti ottaen ei ole hyvä, että yksittäisen
+muutokset edellyttäisivät koko playbookin ajamista. \parencite{KumaraIndika2021Tdad}.
+
+Ansiblessa on mahdollista määrittää rooleille ja tehtäville tunnisteita. Tunnisteiden
+avulla on mahdollista rajata ajamaan vain merkityt roolit/tehtävät. \parencite{AnsibleDocs}
+
+Esimerkissä \ref{lst:lhci-role-tasks} asennetaan lhci-ohjelma pyörimään dockerissa. Asennuksen
+yhteydessä määritellään docker volumet datan säilyttämistä varten. Kyseinen ohjelma saadaan
+päivitettyä lataamalla uusi versio docker imagesta ja käynistämällä kontti uudelleen.
+Ensimmäinen ja neljäs tehtävä tekevätkin tämän, mikäli annetussa imagessa muutetaan
+versionumeroa.
+
+\lstinputlisting[
+  basicstyle=\small,
+  caption={Lhcin asentamiseen tarvittavat tehtävät},
+  label={lst:lhci-role-tasks},
+]{code/lhci-role-tasks.yaml}
+
+Ei kuitenkaan ole tarvetta määritellä volumeja uudelleen joka kerta, joten riittää vain
+ensimmäisen ja neljännen tehtävän ajaminen. Tämän saamme tehtyä määrittämällä esimerkissä
+näkyvät `tags`-attribuutit ja rajaamalla ajaessa:
+
+\begin{lstlisting}[
+  basicstyle=\small,
+  label={lst:ansible-playbook-with-tags},
+  language=bash
+]
+    $ ansible-playbook ... -t lhci_upgrade
+\end{lstlisting}
+
+\subsection{Idempotenssi rikkominen}
+
+IaC:lla hallittavien ympäristöjen halutaan olevan toistettavia eikä hallitsemattomia.
+Ansiblella on mahdollista ajaa mielivaltaisesti komentoa esimerkiksi `command`- ja
+`shell`-moduulien avulla. Näitä käyttäessä onkin syytä olla erittäin huolellinen,
+jotta ympäristön toistettavuus saadaan pidettyä. \parencite{KumaraIndika2021Tdad}
+
+Ansiblessa on mahdollista toteuttaa `command`-moduulilla mahdollisesti ajettavia
+asioita muilla moduuleilla, jolloin vältytään mahdollisesti idempotenssin rikkomiselta.
+Esimerkissä \ref{lst:violating-idempotence} on yksinkertainen esimerkki `rm`-komennon
+korvaamisesta `file`-moduulilla.
+
+\lstinputlisting[
+  basicstyle=\small,
+  caption={Lhcin asentamiseen tarvittavat tehtävät},
+  label={lst:violating-idempotence},
+]{code/violating-idempotence.yaml}

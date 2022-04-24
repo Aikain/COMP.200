@@ -1,0 +1,40 @@
+- name: Pull Docker image
+  docker_image:
+    name: "{{ lhci_docker_image }}"
+    source: pull
+  tags: lhci_upgrade
+
+- name: Volume directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ lhci_path }}"
+    - "{{ lhci_data_path }}"
+
+- name: Docker volumes
+  docker_volume:
+    name: lhci-data
+    driver: local
+    driver_options:
+      type: none
+      device: "{{ lhci_data_path }}"
+      o: bind
+
+- name: Docker container
+  docker_container:
+    name: lhci
+    image: "{{ lhci_docker_image }}"
+    state: started
+    restart_policy: unless-stopped
+
+    volumes:
+      - lhci-data:/data
+
+    init: true
+    tmpfs:
+      - /tmp
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.lhci.loadbalancer.server.port: "9001"
+  tags: lhci_upgrade
