@@ -81,17 +81,15 @@ ratkaisu.
 \subsection{Tulosten näyttäminen Gitlabissa}
 
 Gitlab CI vertailee koodinlaatu raportteja eri haarojen välillä ja näyttää
-tulokset merge requesteissa \parencite{GitlabCICDDocs}. Kuvassa on
-näytetty esimerkki siitä, kun koodinlaatu paranee muutosten myötä.
+tulokset merge requesteissa \parencite{GitlabCICDDocs}. Kuvassa
+\ref{fig:gitlab-code-quality-improved} on näytetty esimerkki siitä, kun
+koodinlaatu paranee muutosten myötä.
 
-%\begin{subfigure}{0.49\textwidth}
-\pdftooltip{
-    \includegraphics[
-        width=\textwidth
-    ]{figures/gitlab-code-quality-improved.png}}
-{Kuva. Koodinlaadun parantuminen tehtyjen muutosten myötä.}
-\caption{test}
-%\end{subfigure}
+\begin{figure}[h!]
+    \includegraphics[width=\textwidth]{figures/gitlab-code-quality-improved}
+    \caption{Kuvankaappaus Gitlabin Merge Requestin yleiskatsauksesta}
+    \label{fig:gitlab-code-quality-improved}
+\end{figure}
 
 On hyvä huomioida, että kohdehaarassa tulee olla muodostettu vastaava
 raportti vähintään kerran, jotta vertailua voidaan suorittaa. \parencite{GitlabCICDDocs}
