@@ -1,6 +1,6 @@
 Tässä luvussa käsitellään joitakin havaittuja virheitä, joita käyttäjä on mahdollisesti
-voinut tehdä käyttäessään Ansiblela. Kappaleessa esitetyt virheet ovat esimerkkejä
-mahdollisista virheistä, joita on tutkimussa \parencite{RahmanAkond2021SSiA,
+voinut tehdä käyttäessään Ansiblea. Luvussa esitetyt virheet ovat esimerkkejä
+mahdollisista virheistä, joita on tutkimuksissa \parencite{RahmanAkond2021SSiA,
     RahmanAkond2019TSSS, KumaraIndika2021Tdad} havaittu useita kertoja.
 
 \section{Tietoturvahajut}
@@ -13,12 +13,12 @@ kerran.
 \subsection{Kovakoodatut salaisuudet}
 
 Selvästi yleisin havaituista tietoturvahajuista on kovakoodatut salaisuudet. Kovakoodatuissa
-salaisuuksissa palajstetaan yleenseä selvätekstisenä joitakin arkaluontoisia tietoja, kuten
+salaisuuksissa paljastetaan yleensä selvätekstisenä joitakin arkaluontoisia tietoja, kuten
 käyttäjätunnuksia ja salasanoja. \parencite{RahmanAkond2019TSSS}
 
 Kovakoodatut salaisuudet ovat yksinkertaisimmillaan sitä, että tehtävän vaatima salaisuus
-kirjoitetaan suoraan tehtävän yhteydeen ja on kenen tahansa luettavissa, joka pääsee käsiksi
-koodiin. Ongelma on havannollistettu esimerkissä  \ref{lst:hardcoded-secret}.
+kirjoitetaan suoraan tehtävän yhteyteen ja on kenen tahansa luettavissa, joka pääsee käsiksi
+koodiin. Ongelma on havainnollistettu esimerkissä \ref{lst:hardcoded-secret}.
 
 \lstinputlisting[
     basicstyle=\small,
@@ -26,8 +26,8 @@ koodiin. Ongelma on havannollistettu esimerkissä  \ref{lst:hardcoded-secret}.
     label={lst:hardcoded-secret}
 ]{code/hardcoded-secret.yaml}
 
-Yksinkertaisuutensa vuoksi ei ole yllättävää, että salasanat tulee helposti kovakoodattua
-suoraan tehtävälle. Vaikka salasana tulisikin muuttujan kautta, ei ratkaisu suoraan ole
+Ei ole yllättävää, että salasanat tulee helposti kovakoodattua suoraan tehtävälle sen ollessa
+yksinkertaisin tapa. Vaikka salasana tulisikin muuttujan kautta, ei ratkaisu suoraan ole
 parempi, mikäli muuttujan sisältö on yhä selvätekstisenä luettavissa. Onkin suositeltavaa
 käyttää holveja apuna salaasamaan salaisuuksia \parencite{RahmanAkond2019TSSS}. Pystymme
 Ansible Vaultin avulla salaamaan muuttujia ja tiedostoja. Kyseinen salaus perustuu siihen,
@@ -57,10 +57,10 @@ Tiedostojen eheyden tarkistuksessa voidaan käyttää tarkistussummia. Eheyden t
 pyritään varmistamaan, että tiedostoa ei ole muutettua sen luonnin jälkeen. Tarkistussumma
 on yleensä 128–512 bittiä pitkä kiinteän pituinen merkkijono riippumatta tiedoston sisällön
 pituudesta. Saman tarkistussumman luominen muutetulla tiedoston sisällöllä (esimerkiksi
-mukaan ujutetulla haittaojelmalla) vaatisi raa'an voiman hyökkäykseen, jonka seurauksena se
+mukaan ujutetulla haittaojelmalla) vaatisi raa'an voiman hyökkäykseen, minkä seurauksena se
 on käytännössä mahdotonta. \parencite{MeylanAlexandre2020ASot}
 
-Mikäli eheyttä ei tarkisteta, tehdään oletus, että tiedosto on aina turvallinen eikä ole
+Mikäli eheyttä ei tarkisteta, tehdään oletus, että tiedosto on aina turvallinen eikä
 mahdollisesti korruptoitu hyökkääjän toimesta \parencite{RahmanAkond2021SSiA}. Esimerkki
 tällaisesta oletuksesta on mahdollista toteuttaa esimerkin
 \ref{lst:file-download-without-checksum} mukaisesti. Esimerkistä ei huomaa tarkistussumman
@@ -103,7 +103,7 @@ esimerkissä \ref{lst:file-download-with-checksum} ilman että tarkistussummakin
 Monesti esitellään hyviä ja huonoja käytäntöjä, miten asioita tulisi tehdä. Virheitä
 tarkastellessa haluamme kiinnittää huomioita erityisesti huonoihin käytäntöihin, joita
 voi mahdollisesti esiintyä tehdyissä ratkaisussa. Esimerkkejä huonoista käytännöistä
-Ansiblella on muun muuassa riittämötän modulaarisuus ja idempotenssin rikkominen.
+Ansiblella on muun muuassa riittämätön modulaarisuus ja idempotenssin rikkominen.
 
 \subsection{Riittämätön modulaarisuus}
 
@@ -113,12 +113,12 @@ jotta koodista saadaan modulaarisempaa. Yleisesti ottaen ei ole hyvä, että yks
 muutokset edellyttäisivät koko playbookin ajamista. \parencite{KumaraIndika2021Tdad}.
 
 Ansiblessa on mahdollista määrittää rooleille ja tehtäville tunnisteita. Tunnisteiden
-avulla on mahdollista rajata ajamaan vain merkityt roolit/tehtävät. \parencite{AnsibleDocs}
+avulla voidaan rajata ajamaan vain merkityt roolit tai tehtävät. \parencite{AnsibleDocs}
 
-Esimerkissä \ref{lst:lhci-role-tasks} asennetaan lhci-ohjelma pyörimään dockerissa. Asennuksen
-yhteydessä määritellään docker volumet datan säilyttämistä varten. Kyseinen ohjelma saadaan
-päivitettyä lataamalla uusi versio docker imagesta ja käynistämällä kontti uudelleen.
-Ensimmäinen ja neljäs tehtävä tekevätkin tämän, mikäli annetussa imagessa muutetaan
+Esimerkissä \ref{lst:lhci-role-tasks} asennetaan ohjelma pyörimään Dockerissa. Asennuksen
+yhteydessä määritellään Dockerin datasäiliöt (volume) datan säilyttämistä varten. Kyseinen
+ohjelma saadaan päivitettyä lataamalla uusi versio Docker imagesta ja käynnistämällä ohjelma
+uudelleen. Ensimmäinen ja neljäs tehtävä tekevätkin tämän, mikäli annetussa imagessa muutetaan
 versionumeroa.
 
 \lstinputlisting[
@@ -127,7 +127,7 @@ versionumeroa.
     label={lst:lhci-role-tasks},
 ]{code/lhci-role-tasks.yaml}
 
-Ei kuitenkaan ole tarvetta määritellä volumeja uudelleen joka kerta, joten riittää vain
+Ei kuitenkaan ole tarvetta määritellä datasäiliöitä uudelleen joka kerta, joten riittää vain
 ensimmäisen ja neljännen tehtävän ajaminen. Tämän saamme tehtyä määrittämällä esimerkissä
 näkyvät `tags`-attribuutit ja rajaamalla ajaessa:
 
@@ -139,7 +139,7 @@ näkyvät `tags`-attribuutit ja rajaamalla ajaessa:
     $ ansible-playbook ... -t lhci_upgrade
 \end{lstlisting}
 
-\subsection{Idempotenssi rikkominen}
+\subsection{Idempotenssin rikkominen}
 
 IaC:lla hallittavien ympäristöjen halutaan olevan toistettavia eikä hallitsemattomia.
 Ansiblella on mahdollista ajaa mielivaltaisesti komentoa esimerkiksi `command`- ja

@@ -7,21 +7,21 @@ myös ratkaisuja, joita käyttämällä vältyttäisiin kyseisiltä virheiltä.
 Tarkastellut virheet voidaan jakaa kahteen eri kategoriaan; tietoturvahajuihin
 ja huonoihin käytäntöihin. Tietoturvahajut ovat mahdollisia virheitä, jotka
 mahdollisesti heikentävät toteutuksen tietoturvaa. Huonot käytännöt puolestaan
-ovat yleisesti määritelty huonoksi tavaksi toteuttaa kyseinen asia. Näistä
+on yleisesti määritelty huonoksi tavaksi toteuttaa kyseinen asia. Näistä
 selvästi kriittisempiä ovatkin juuri tietoturvahajut, jotka voivat aiheuttaa
 merkittäviä ongelmia, kun huonot käytänteet puolestaan ovat enemmän
 kehittämisen ja ylläpidettävyyden kannalta häiritseviä.
 
 Tietoturvahajuissa selvästi eniten esille on tullut salaisuuksia
-kovakoodaaminen. Dokumentaatiossa lähes poikkeuksetta esitetään aina
+kovakoodaaminen. Dokumentaatiossa lähes poikkeuksetta näytetään esimerkit
 kovakoodatuilla salaisuuksilla, jotta dokumentaatio saadaan pidettyä
 mahdollisimman yksinkertaisena ja selvänä. Toinen useasti esille noussut
 tietoturvahaju oli eheystarkistuksen puuttuminen.
 
 Huonoissa käytänteissä esille nousivat riittämätön modulaarisuus ja
-idempotenssin rikkominen. Riittämätön modulaarisuus ongelma tulee vastaan
+idempotenssin rikkominen. Riittämättömän modulaarisuuden ongelma tulee vastaan
 sovelluksen laajentuessa, eikä sitä ole aluksi välttämättä helppo havaita.
-Projektin lähtiessä huonosti liikkeelle voi olla myöhemmin hankala lähteä
+Projektin lähtiessä huonosti liikkeelle sitä voi olla myöhemmin hankala lähteä
 korjaamaan. Idempotenssin rikkomisella voidaan aiheuttaa ympäristöihin
 yllättäviä ongelmia, joita ei välttämättä pystytä toistamaan ja sen myötä
 korjaaminen voi olla haastavaa.
@@ -31,5 +31,5 @@ kaikkien löydettyjen ongelmien käsittely ole mitenkään mielekästä. Ei ole
 myöskään oletettavaa, että kukaan pystyisi tiedostamaan ja hallitsemaan
 kaikkia mahdollisia ongelmia. Automaattiset työkalut virheiden tunnistamiseen
 eivät ole vielä kattavimpia, mutta joitakin ongelmia on mahdollista tunnistaa.
-Yhtenä vaihtoehtoja työn loppupuolella on esitelty ansible-lint-ohjelma, joka
+Yhtenä vaihtoehtona työn loppupuolella on esitelty Ansible Lint -ohjelma, joka
 kykenee huomauttamaan joistakin huonoista käytänteistä.

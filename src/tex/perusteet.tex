@@ -8,19 +8,20 @@ joiden tietäminen on välttämätöntä myöhempien lukujen kannalta.
 Infratruktuuri koodina on nimensä mukaisesti sitä, että infrastruktuuri
 muodostetaan koodin pohjalta. Lähtökohtaisesti ympäristö on tällöin
 luotu automaattisesti ja määritellyllä tavalla, ja se on mahdollista
-toteuttaa uudelleen samanlaisena. Infrastruktuurin toteuttamienn koodin
+toteuttaa uudelleen samanlaisena. Infrastruktuurin toteuttaminen koodin
 avulla mahdollistaa koko infrastruktuurin dokumennoin toteutuksen ohessa
 eikä jätä ympäristöön liittyviä asioita tekijän muistin varaan.
 \parencite{KiefMorris2020IaC2}
 
 Tunnettuja IaC-ratkaisuja ovat muun muassa Ansible, Puppet, Chef, SaltStack
 ja Terraform. Idea eri ratkaisuissa on pääpiirteittä sama. Suurimpia eroja
-tuvoat kieli, jolla ratkaisu on toteutettu sekä ajamisessa käytettävä
+tuovat kieli, jolla ratkaisu on toteutettu sekä ajamisessa käytettävä
 metodi. Osa ratkaisuista, kuten Chref ja Puppet, suosivat veto-metodia,
 kun puolestaan Ansible ja Terraform työntö-metodia. Veto-metodissa
-käyttäjä suorittaa ohjelman kohdepalvelimella, joka hakee tarvittavat
-määritykset hallintapalvelimelta. Työntö-metodissa puolestaan ohjelma
-ottaa yhteyden palvelimille.
+käyttäjä suorittaa ohjelman palvelimella, jolle haluaa tehdä muutoksia.
+Tällöin ohjelma hakee tarvittavat määritykset keskitetyltä hallintapalvelimelta.
+Työntö-metodissa puolestaan ohjelma ottaa yhteyden halutulle palvelimille,
+toteuttaakseen käyttäjän määrittämät toiminnot. \parencite{RitiPierluigi2021IaC}
 
 \section{Ansiblen asennus ja käyttö}
 
@@ -31,8 +32,8 @@ tarjoaman valmiin kattauksen moduuleja, joita voidaan käyttää eri
 tehtävissä. \parencite{AnsibleDocs}
 
 Ansible tarvitsee toimiakseen Pythonin, joten käyttöjärjestelmästä
-löytyy todennäköisesti myös Pip, jolla Ansiblen asennus onnistuu
-vaivattomasti:
+löytyy todennäköisesti myös Pythonin pakettemanageri eli Pip, jolla
+Ansiblen asennus onnistuu vaivattomasti:
 
 \begin{lstlisting}[
     basicstyle=\small,
@@ -76,9 +77,8 @@ esimerkin \ref{lst:ansible-inventory} mukaisesti.
 \end{lstlisting}
 
 Inventaariot voivat myös olla dynaamisia \parencite{JamesFreeman2020PA2}.
-Tällöin lista palvelimista voidaan hakea esimerkiksi palveluntarjoajan APIsta,
-kuten Hetzner Cloudin palvelimet saadaan haettua käytätmällä
-hetzner.hcloud.hcloud-inventaariota \parencite{AnsibleDocs}.
+Tällöin lista palvelimista voidaan hakea esimerkiksi palveluntarjoajan
+ohjelmointirajapinnasta. \parencite{AnsibleDocs}.
 
 \subsection{Playbookit ja tehtävät}
 
@@ -165,16 +165,15 @@ Jinja2-kieli tukee datan yksinkertaista käsittelyä, kuten esimerkin
 käytetään template-moduulin avulla, josta on esimerkki käsittelijä-esimerkin
 yhteydessä \ref{lst:handler-task-example}. \parencite{AnsibleDocs}
 
-Ohjelmien asennus voi vaatia useita pieniä tehtäviä, jotka kaikki ovat
-tarpeellisia, jotta ohjelma toimii oikein. Tällöin ohjelman käynistämistä ei
-voida välttämättä toteuttaa ennen kuin kaikki tehtävät on suoritettu.
-Tällöin on mahdollista merkitävä tehtäville käsittelijä. Käsittelijä ajetaan
-vasta, kun kaikki tehtävät ovat suoritettu. Yleinen käyttö käsittelijöille
-on nimenomaan asetustiedostojen yhteydessä. Käsittelijä ajetaan vain jos
-tehtävä, johon se on liitetty, tekee muutoksia. Tällöin voidaan esimerkiksi
-käynnistää ohjelma uusiksi mikäli asetustiedostossa on muutoksia ja ohjelma
-tarvitsee uudelleenkäynnistyksen ladatakseen uudet muutokset.
-\parencite{JamesFreeman2020PA2}
+Ohjelmien asennus voi vaatia useita pieniä tehtäviä, jotta ohjelma toimii
+oikein. Tällöin ohjelman käynnistämistä ei voida välttämättä toteuttaa ennen
+kuin kaikki tehtävät on suoritettu. Tällöin on mahdollista merkittävä tehtäville
+käsittelijä. Käsittelijä ajetaan vasta, kun kaikki tehtävät on suoritettu.
+Yleinen käyttö käsittelijöille  on nimenomaan asetustiedostojen yhteydessä.
+Käsittelijä ajetaan vain jos tehtävä, johon se on liitetty, tekee muutoksia.
+Tällöin voidaan esimerkiksi käynnistää ohjelma uusiksi mikäli asetustiedostossa
+on muutoksia ja ohjelma tarvitsee uudelleenkäynnistyksen ladatakseen uudet
+muutokset. \parencite{JamesFreeman2020PA2}
 
 Käsittelijä laitetaan handlers-kansioon main.yml-tiedostoon esimerkin
 \ref{lst:handler-example} mukaisesti.
@@ -196,7 +195,7 @@ avulla, kuten esimerkissä \ref{lst:handler-task-example} on näytetty.
 
 \subsection{Muuttujat ja holvi}
 
-Ansiblessa tietoa säilytään muuttujiin. Muuttujia on mahdollista määrittää monella
+Ansiblessa tietoa säilytään muuttujissa. Muuttujia on mahdollista määrittää monella
 eri tavalla. Muuttujat on voitu määritellä esimerkiksi roolissa, inventorissa
 tai playbookissa ja ne voivat kohdistua tiettyyn palvelimeen tai palvelimien
 muodostomaan ryhmään. \parencite{JamesFreeman2020PA2}
@@ -244,6 +243,6 @@ voidaan käyttää muuttujien sisältönä esimerkin \ref{lst:var-example} mukai
 ]{code/var-example.yaml}
 
 Kunhan vain Ansible pystyy saamaan tiedoston, jonka avulla salaus toteutettiin,
-pystyy Ansible purkamaan salaisuuden ajon yhteydessä. Nyt on vain huolehdisttava
-salaamisessa käytettävän tiedoston välittömisestä kaikille sitä tarvitseville ja
+pystyy Ansible purkamaan salaisuuden ajon yhteydessä. Nyt on vain huolehdittava
+salaamisessa käytettävän tiedoston välittämisestä kaikille sitä tarvitseville ja
 kaikki muut salaisuudet voivat olla versionhallinnassa.

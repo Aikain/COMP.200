@@ -1,21 +1,21 @@
-Tutkimuksissa \parencite{RahmanAkond2019TSSS}, \parencite{RahmanAkond2021SSiA} käytettiin
+Tutkimuksissa \parencite{RahmanAkond2019TSSS} ja \parencite{RahmanAkond2021SSiA} käytettiin
 tutkimuksia varten tehtyjä työkaluja, jotka oli empiirisesti validoitu toimiviksi.
-Kyseiset työkalut eivät yleisesti ole tiedossa tai käytettävissä. Tässä kappaleessa on
-kuitenkin esitelty yksi työkalu, ansible-lint, joka edes auttaa havaitsemaan vastaavia
+Kyseiset työkalut eivät yleisesti ole tiedossa tai käytettävissä. Tässä luvussa on
+kuitenkin esitelty yksi työkalu, Ansible Lint, joka edes auttaa havaitsemaan vastaavia
 virheitä ja johon on mahdollista rakentaa itse lisätarkistuksia \parencite{SestoVincent2020ATaV}.
 
-\section{Ansible-lint}
+\section{Ansible Lint}
 
-Ansible-lint on työkalu, joka on suuniteltu tarkistamaan noudatetaanko parhaita
+Ansible Lint on työkalu, joka on suunniteltu tarkistamaan noudatetaanko parhaita
 käytäntöjä ja sen myötä edesauttamaan käytäntöjen parantamista \parencite{GithubAnsibleLint}.
-Työkalua ei ole nimenomaan suuniteltu huomaamaan turvallisuuspuutteita, mutta parhaat
+Työkalua ei ole nimenomaan suunniteltu huomaamaan turvallisuuspuutteita, mutta parhaat
 käytännöt sisältävät myös asioita, jotka ovat turvallisuuden kannalta oleellisia.
 
 \subsection{Manuaalinen ajaminen}
 
-Ansible vaatii ajamiseen tarkoitetulla palvelimella python3.8:n \parencite{AnsibleDocs}.
+Ansible vaatii ajamiseen tarkoitetulla palvelimella Python 3.8:n \parencite{AnsibleDocs}.
 Tämän myötä koneelle on todennäköisesti asennettu myös pip. Työkalun asentaminen
-onnistuukin tällöin helposti pip:in avulla \parencite{AnsibleLintReadTheDocs}:
+onnistuukin tällöin helposti pipin avulla \parencite{AnsibleLintReadTheDocs}:
 
 \begin{lstlisting}[
     basicstyle=\small,
@@ -26,7 +26,7 @@ onnistuukin tällöin helposti pip:in avulla \parencite{AnsibleLintReadTheDocs}:
 \end{lstlisting}
 
 Työkalu ei tarvitse lisämäärityksiä vaan voi tunnistaa automaattisesti tarvittavat
-tiedostot ansible-projektista \parencite{AnsibleLintReadTheDocs}:
+tiedostot Ansible-projektista \parencite{AnsibleLintReadTheDocs}:
 
 \begin{lstlisting}[
     basicstyle=\small,
@@ -36,7 +36,7 @@ tiedostot ansible-projektista \parencite{AnsibleLintReadTheDocs}:
     $ ansible-lint
 \end{lstlisting}
 
-Komennon antama ulostulo voi näyttää esimerkin \ref{lst:ansible-lint-simple-example} mukaiselta.
+Komennon antama ulostulo voi näyttää esimerkin \ref{lst:Ansible Lint-simple-example} mukaiselta.
 
 \begin{lstlisting}[
     basicstyle=\small,
@@ -50,17 +50,21 @@ Komennon antama ulostulo voi näyttää esimerkin \ref{lst:ansible-lint-simple-e
     roles/address_checker/tasks/main.yml:13 Task/Handler: DB volume directory
 \end{lstlisting}
 
-Kattavampi ulostulo on esitelty liitteessä \ref{lst:ansible-lint-example}.
+Kattavampi ulostulo on esitelty liitteessä \ref{lst:ansible-lint-example}. Liitteestä
+nähdään kuinka kehittäjältä jää helposti useita yksinkertaisia ongelmia huomaamatta ja
+saman ongelman toistuvan useasti.
 
 \subsection{Automaattinen ajaminen Gitlab CI:n avulla}
 
 Gitlabia tietovarastona (repository) käyttävät ohjelmistoprojektit voivat käyttää
-jatkuvan integraation suorittamiseen Gitlab CI/CD:ta. Gitlab CI/CD perustuu
-avoimeen lähdekoodiin ja sen ilmainen versio on ollut jo aikoinaan parhaimpia ja
-kattavampia. \parencite{alma9911268330505973}
+jatkuvan integraation ja kehittämisen suorittamiseen Gitlab CI/CD:ta, joka mahdollistaa
+erilaisten tehtävien suorittamisen automaattisesti koodivarantoon tehtyjen muutoksien
+perusteella. Gitlab CI/CD perustuu avoimeen lähdekoodiin ja sen ilmainen versio on ollut
+jo aikoinaan parhaimpia ja kattavampia. \parencite{alma9911268330505973}
 
 Yleisesti tunnettuja vaihtoehtoisia ratkaisuja ovat muun muassa Github Actions,
-Travis CI, CircleCI ja Jenkins.
+Travis CI, CircleCI ja Jenkins. Tässä työssä kuitenkin esitellään toteutus vain
+Gitlab CI/CD:llä, sillä muilla toteuttaminen tapahtuu vastaavasti.
 
 Gitlab CI:ssa tarvittavat määritykset laitetaan `.gitlab-ci.yml`-tiedostoon
 \parencite{GitlabCICDDocs}. Esimerkissä \ref{lst:gitlab-ci-ansible-lint} esitelty
@@ -69,21 +73,22 @@ jokaisen muutoksen myötä.
 
 \lstinputlisting[
     basicstyle=\small,
-    caption={Esimerkki yksinkertaisesti Gitlab CI määrityksestä ansible-lint:n ajamiseen automaattisesti},
+    caption={Esimerkki yksinkertaisesti Gitlab CI määrityksestä Ansible Lint:n ajamiseen automaattisesti},
     label={lst:gitlab-ci-ansible-lint},
 ]{code/gitlab-ci-ansible-lint.yaml}
 
 Ylläoleva esimerkki on yksinkertainen eikä sisällä esimerkiksi välimuistin
-määrittämistä, jotten työkaluja tarvitse jokaisella suorituskerralla asentaa
+määrittämistä, jottei työkaluja tarvitse jokaisella suorituskerralla asentaa
 uusiksi. Lisäksi työkalun ajaminen joka ei kerta ei välttämättä ole suositeltava
-ratkaisu.
+ratkaisu mikäli muutokset eivät kohdistuneen mihinkään, joka vaikuttaisi
+lopputulokseen.
 
 \subsection{Tulosten näyttäminen Gitlabissa}
 
-Gitlab CI vertailee koodinlaatu raportteja eri haarojen välillä ja näyttää
-tulokset merge requesteissa \parencite{GitlabCICDDocs}. Kuvassa
+Gitlab CI vertailee koodinlaaturaportteja eri haarojen välillä ja näyttää
+tulokset Gitlabin käyttöliittymän kautta \parencite{GitlabCICDDocs}. Kuvassa
 \ref{fig:gitlab-code-quality-improved} on näytetty esimerkki siitä, kun
-koodinlaatu paranee muutosten myötä.
+koodin laatu paranee muutosten myötä.
 
 \begin{figure}[h!]
     \includegraphics[width=\textwidth]{figures/gitlab-code-quality-improved}
@@ -91,8 +96,6 @@ koodinlaatu paranee muutosten myötä.
     \label{fig:gitlab-code-quality-improved}
 \end{figure}
 
-On hyvä huomioida, että kohdehaarassa tulee olla muodostettu vastaava
-raportti vähintään kerran, jotta vertailua voidaan suorittaa. \parencite{GitlabCICDDocs}
-
-Ansible-lintin muodostavat codeclimate raportit on mahdollista ladata myös
-erikseen Gitlab CI/CD Pipelinejen artifakteista. \parencite{GitlabCICDDocs}
+On hyvä huomioida, että kohdehaarassa tulee olla muodostettu vastaava raportti
+vähintään kerran, jotta vertailua voidaan suorittaa. Muodostetut raportin on
+mahdollista ladata Gitlabin käyttöliittymän kautta.\parencite{GitlabCICDDocs}
