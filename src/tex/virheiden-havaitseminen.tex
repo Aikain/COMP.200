@@ -1,8 +1,8 @@
 Tutkimuksissa \parencite{RahmanAkond2019TSSS} ja \parencite{RahmanAkond2021SSiA} käytettiin
 tutkimuksia varten tehtyjä työkaluja, jotka oli empiirisesti validoitu toimiviksi.
 Kyseiset työkalut eivät yleisesti ole tiedossa tai käytettävissä. Tässä luvussa on
-kuitenkin esitelty yksi työkalu, Ansible Lint, joka edes auttaa havaitsemaan vastaavia
-virheitä ja johon on mahdollista rakentaa itse lisätarkistuksia \parencite{SestoVincent2020ATaV}.
+kuitenkin esitelty yksi työkalu, Ansible Lint, joka edesauttaa vastaavien virheiden
+havaitsemista ja johon on mahdollista rakentaa itse lisätarkistuksia \parencite{SestoVincent2020ATaV}.
 
 \section{Ansible Lint}
 
@@ -36,7 +36,7 @@ tiedostot Ansible-projektista \parencite{AnsibleLintReadTheDocs}:
     $ ansible-lint
 \end{lstlisting}
 
-Komennon antama ulostulo voi näyttää esimerkin \ref{lst:Ansible Lint-simple-example} mukaiselta.
+Komennon antama ulostulo voi näyttää esimerkin \ref{lst:ansible-lint-simple-example} mukaiselta.
 
 \begin{lstlisting}[
     basicstyle=\small,
@@ -51,8 +51,8 @@ Komennon antama ulostulo voi näyttää esimerkin \ref{lst:Ansible Lint-simple-e
 \end{lstlisting}
 
 Kattavampi ulostulo on esitelty liitteessä \ref{lst:ansible-lint-example}. Liitteestä
-nähdään kuinka kehittäjältä jää helposti useita yksinkertaisia ongelmia huomaamatta ja
-saman ongelman toistuvan useasti.
+nähdään, kuinka kehittäjältä jää helposti useita yksinkertaisia ongelmia huomaamatta ja
+että samat ongelmat toistuvat useasti.
 
 \subsection{Automaattinen ajaminen Gitlab CI:n avulla}
 
@@ -67,19 +67,19 @@ Travis CI, CircleCI ja Jenkins. Tässä työssä kuitenkin esitellään toteutus
 Gitlab CI/CD:llä, sillä muilla toteuttaminen tapahtuu vastaavasti.
 
 Gitlab CI:ssa tarvittavat määritykset laitetaan `.gitlab-ci.yml`-tiedostoon
-\parencite{GitlabCICDDocs}. Esimerkissä \ref{lst:gitlab-ci-ansible-lint} esitelty
+\parencite{GitlabCICDDocs}. Esimerkissä \ref{lst:gitlab-ci-ansible-lint} esitellään
 yksinkertainen vaihtoehto, jolla saadaan ajettua `ansible-lint` automaattisesti
 jokaisen muutoksen myötä.
 
 \lstinputlisting[
     basicstyle=\small,
-    caption={Esimerkki yksinkertaisesti Gitlab CI määrityksestä Ansible Lint:n ajamiseen automaattisesti},
+    caption={Esimerkki yksinkertaisesta Gitlab CI määrityksestä Ansible Lint:n ajamiseen automaattisesti},
     label={lst:gitlab-ci-ansible-lint},
 ]{code/gitlab-ci-ansible-lint.yaml}
 
 Ylläoleva esimerkki on yksinkertainen eikä sisällä esimerkiksi välimuistin
 määrittämistä, jottei työkaluja tarvitse jokaisella suorituskerralla asentaa
-uusiksi. Lisäksi työkalun ajaminen joka ei kerta ei välttämättä ole suositeltava
+uusiksi. Lisäksi työkalun ajaminen joka kerta ei välttämättä ole suositeltava
 ratkaisu mikäli muutokset eivät kohdistuneen mihinkään, joka vaikuttaisi
 lopputulokseen.
 

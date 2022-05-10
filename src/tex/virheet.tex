@@ -7,7 +7,7 @@ mahdollisista virheistä, joita on tutkimuksissa \parencite{RahmanAkond2021SSiA,
 
 Tietoturvahajulla tarkoitetaan toistuvia koodausmalleja, jotka heikentävät turvallisuutta
 \parencite{RahmanAkond2021SSiA}. IaC:n modulaarisen luonteen vuoksi huono ratkaisu voi
-toistua varsinaisessa ympäristöissä useita kertoja, vaikka olisikin määritelyt vain
+toistua varsinaisessa ympäristöissä useita kertoja, vaikka olisikin määritelty vain
 kerran.
 
 \subsection{Kovakoodatut salaisuudet}
@@ -26,16 +26,15 @@ koodiin. Ongelma on havainnollistettu esimerkissä \ref{lst:hardcoded-secret}.
     label={lst:hardcoded-secret}
 ]{code/hardcoded-secret.yaml}
 
-Ei ole yllättävää, että salasanat tulee helposti kovakoodattua suoraan tehtävälle sen ollessa
-yksinkertaisin tapa. Vaikka salasana tulisikin muuttujan kautta, ei ratkaisu suoraan ole
-parempi, mikäli muuttujan sisältö on yhä selvätekstisenä luettavissa. Onkin suositeltavaa
-käyttää holveja apuna salaasamaan salaisuuksia \parencite{RahmanAkond2019TSSS}. Pystymme
-Ansible Vaultin avulla salaamaan muuttujia ja tiedostoja. Kyseinen salaus perustuu siihen,
-että salauksen purkamiseen tarvitaan erillinen avain, joka jaetaan erikseen sen tarvitseville.
-Tällöin voidaan varsinainen salaisuus pitää koodin mukana. Esimerkki Ansible Vaultin käytöstä
-on esitetty esimerkissä \ref{lst:secret-with-ansible-vault}. Kuten esimerkistä nähdään,
-ei salaisuutta pysty suorilta käsiltä näkemään. Salaisuus ei ole myöskään selvitettävissä
-ohjelmallisesti ilman salauksen purkamiseen tarvittavaa avainta.
+Salasanoja kovakoodataan herkästi siksi, että se on yksinkertaisin tapa. Vaikka salasana tulisikin
+muuttujan kautta, ei ratkaisu suoraan ole parempi, mikäli muuttujan sisältö on yhä selvätekstisenä
+luettavissa. Onkin suositeltavaa käyttää holveja apuna salaamaan salaisuuksia
+\parencite{RahmanAkond2019TSSS}. Ansible Vaultin avulla pystätään salaamaan muuttujia ja tiedostoja.
+Kyseinen salaus perustuu siihen, että salauksen purkamiseen tarvitaan erillinen avain, joka jaetaan
+erikseen sen tarvitseville. Tällöin voidaan varsinainen salaisuus pitää koodin mukana. Esimerkki
+Ansible Vaultin käytöstä on esitetty esimerkissä \ref{lst:secret-with-ansible-vault}. Kuten
+esimerkistä nähdään, ei salaisuutta pysty suorilta käsiltä näkemään. Salaisuus ei ole myöskään
+selvitettävissä ohjelmallisesti ilman salauksen purkamiseen tarvittavaa avainta.
 
 \lstinputlisting[
     basicstyle=\small,
@@ -44,20 +43,19 @@ ohjelmallisesti ilman salauksen purkamiseen tarvittavaa avainta.
 ]{code/secret-with-ansible-vault.yaml}
 
 Mahdollisen syyn kovakoodatuille salaisuuksille voivat muodostaa salaisuuksien salaamisen
-tuoma ylimääräinen vaihe sekä dokumentaatiossa olevien esimerkkien yksinkertaisuus. Aiemmin
-esitetty esimerkki \ref{lst:hardcoded-secret} on vastaava kuin mitä suoraan dokumentaatiosta
-\parencite{AnsibleDocs} on löydettävissä. Dokumentaatio pyrkii toki olemaan tehtävien
-toiminnallisuuden kannalta yksinkertainen, joten on ymmärrettävää, ettei kyseisen tehtävän
-esimerkeissä ole lähdetty esittelemään tehtävään suoraan liittymättömän toiminnallisuuden
-käyttöä.
+tuoma ylimääräinen vaihe sekä dokumentaatiossa olevien esimerkkien yksinkertaisuus. Aikasempi
+esimerkki \ref{lst:hardcoded-secret} vastaa dokumentaatiosta löytyvää esimerkkiä
+\parencite{AnsibleDocs}. Dokumentaatio pyrkii toki olemaan tehtävien toiminnallisuuden kannalta
+yksinkertainen, joten on ymmärrettävää, ettei kyseisen tehtävän esimerkeissä ole lähdetty
+esittelemään tehtävään suoraan liittymättömän toiminnallisuuden käyttöä.
 
 \subsection{Eheystarkistuksen puuttuminen}
 
 Tiedostojen eheyden tarkistuksessa voidaan käyttää tarkistussummia. Eheyden tarkistamisella
-pyritään varmistamaan, että tiedostoa ei ole muutettua sen luonnin jälkeen. Tarkistussumma
+pyritään varmistamaan, että tiedostoa ei ole muutettu sen luonnin jälkeen. Tarkistussumma
 on yleensä 128–512 bittiä pitkä kiinteän pituinen merkkijono riippumatta tiedoston sisällön
 pituudesta. Saman tarkistussumman luominen muutetulla tiedoston sisällöllä (esimerkiksi
-mukaan ujutetulla haittaojelmalla) vaatisi raa'an voiman hyökkäykseen, minkä seurauksena se
+mukaan ujutetulla haittaojelmalla) vaatisi raa'an voiman hyökkäyksen, minkä seurauksena se
 on käytännössä mahdotonta. \parencite{MeylanAlexandre2020ASot}
 
 Mikäli eheyttä ei tarkisteta, tehdään oletus, että tiedosto on aina turvallinen eikä
@@ -100,8 +98,8 @@ esimerkissä \ref{lst:file-download-with-checksum} ilman että tarkistussummakin
 
 \section{Huonoja käytäntöjä}
 
-Monesti esitellään hyviä ja huonoja käytäntöjä, miten asioita tulisi tehdä. Virheitä
-tarkastellessa haluamme kiinnittää huomioita erityisesti huonoihin käytäntöihin, joita
+Asioiden tekemiseen esitellään usein hyviä ja huonoja käytöntöjä. Virheitä
+tarkastellessa haluamme kiinnittää huomiota erityisesti huonoihin käytäntöihin, joita
 voi mahdollisesti esiintyä tehdyissä ratkaisussa. Esimerkkejä huonoista käytännöistä
 Ansiblella on muun muuassa riittämätön modulaarisuus ja idempotenssin rikkominen.
 
@@ -109,7 +107,7 @@ Ansiblella on muun muuassa riittämätön modulaarisuus ja idempotenssin rikkomi
 
 Ansiblessa on mahdollista määritellä suoraan yksittäisiä tehtäviä playbookeissa ajettavaksi
 \parencite{AnsibleDocs}. On kuitenkin suositeltavaa, että tehtäviä ei käytetä ilman rooleja,
-jotta koodista saadaan modulaarisempaa. Yleisesti ottaen ei ole hyvä, että yksittäisen
+jotta koodista saadaan modulaarisempaa. Yleisesti ottaen ei ole hyvä, että yksittäiset
 muutokset edellyttäisivät koko playbookin ajamista. \parencite{KumaraIndika2021Tdad}.
 
 Ansiblessa on mahdollista määrittää rooleille ja tehtäville tunnisteita. Tunnisteiden

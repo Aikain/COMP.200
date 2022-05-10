@@ -14,25 +14,25 @@ eikä jätä ympäristöön liittyviä asioita tekijän muistin varaan.
 \parencite{KiefMorris2020IaC2}
 
 Tunnettuja IaC-ratkaisuja ovat muun muassa Ansible, Puppet, Chef, SaltStack
-ja Terraform. Idea eri ratkaisuissa on pääpiirteittä sama. Suurimpia eroja
+ja Terraform. Idea eri ratkaisuissa on pääpiirteittäin sama. Suurimpia eroja
 tuovat kieli, jolla ratkaisu on toteutettu sekä ajamisessa käytettävä
-metodi. Osa ratkaisuista, kuten Chref ja Puppet, suosivat veto-metodia,
+metodi. Osa ratkaisuista, kuten Chef ja Puppet, suosivat veto-metodia,
 kun puolestaan Ansible ja Terraform työntö-metodia. Veto-metodissa
 käyttäjä suorittaa ohjelman palvelimella, jolle haluaa tehdä muutoksia.
 Tällöin ohjelma hakee tarvittavat määritykset keskitetyltä hallintapalvelimelta.
-Työntö-metodissa puolestaan ohjelma ottaa yhteyden halutulle palvelimille,
+Työntö-metodissa puolestaan ohjelma ottaa yhteyden halutuille palvelimille,
 toteuttaakseen käyttäjän määrittämät toiminnot. \parencite{RitiPierluigi2021IaC}
 
 \section{Ansiblen asennus ja käyttö}
 
 Versiosta 2.10 alkaen Ansible on jakautunut kahteen eri pakettiin:
 ansibleen ja ansible-coreen. Varsinainen Ansiblen ydin löytyy
-ansible-core-paketista. Ansible paketti puolestaan sisältää yhteisön
+ansible-core-paketista. Ansible-paketti puolestaan sisältää yhteisön
 tarjoaman valmiin kattauksen moduuleja, joita voidaan käyttää eri
 tehtävissä. \parencite{AnsibleDocs}
 
 Ansible tarvitsee toimiakseen Pythonin, joten käyttöjärjestelmästä
-löytyy todennäköisesti myös Pythonin pakettemanageri eli Pip, jolla
+löytyy todennäköisesti myös Pythonin pakettimanageri eli Pip, jolla
 Ansiblen asennus onnistuu vaivattomasti:
 
 \begin{lstlisting}[
@@ -82,12 +82,12 @@ ohjelmointirajapinnasta. \parencite{AnsibleDocs}.
 
 \subsection{Playbookit ja tehtävät}
 
-Ansiblessa suoritaan yksittäisiä pieniä tehtäviä, joita peräkkäin ajamalla
+Ansiblessa suoritetaan yksittäisiä pieniä tehtäviä, joita peräkkäin ajamalla
 saadaan toteutettua kokonaisuuksia. Tehtävät käyttävät jotain asennettua
 moduulia. \parencite{JamesFreeman2020PA2} Esimerkissä \ref{lst:ansible-apt-figlet}
 käytetään apt-moduulia, jolla saadaan asennettua määritelty paketti. Esimerkin
 mukaisesti tehtäville annetaan kuvaava nimi, joka tulee näkymään myöhemmin
-ulostulossa kun, tehtäviä ajetaan.
+ulostulossa, kun tehtäviä ajetaan.
 
 \lstinputlisting[
     basicstyle=\small,
@@ -120,8 +120,8 @@ Playbook saadaan ajettua ansible-playbook -komennolla:
 
 \subsection{Roolit, sapluunat ja käsittelijät}
 
-Yksittäisten tehtävien kirjoittamisen sisään on mahdollista tehdä rooleja,
-jotka sisältävän useita tehtäviä ja muita niiden tarvitsemia asioita, kuten
+Yksittäisten tehtävien kirjoittamisen sijaan on mahdollista tehdä rooleja,
+jotka sisältävät useita tehtäviä ja muita niiden tarvitsemia asioita, kuten
 sapluunoita (template) tai käsittelöitä (handlers). Samaa roolia voidaan
 käyttää myös useissa eri playbookeissa, jolloin rooleilla saadaan muodostettua
 pieniä kokonaisuuksia, joita yhdistelemällä saadaan muodostettua koko
@@ -161,13 +161,13 @@ muodostetaan jinja2-kieltä käyttämällä. \parencite{JamesFreeman2020PA2}
 ]{code/template-example.j2}
 
 Jinja2-kieli tukee datan yksinkertaista käsittelyä, kuten esimerkin
-\ref{lst:template-example} mukaisesti listojen läpi käyntiä. Sapluunoja
+\ref{lst:template-example} mukaista listojen läpikäyntiä. Sapluunoja
 käytetään template-moduulin avulla, josta on esimerkki käsittelijä-esimerkin
 yhteydessä \ref{lst:handler-task-example}. \parencite{AnsibleDocs}
 
 Ohjelmien asennus voi vaatia useita pieniä tehtäviä, jotta ohjelma toimii
 oikein. Tällöin ohjelman käynnistämistä ei voida välttämättä toteuttaa ennen
-kuin kaikki tehtävät on suoritettu. Tällöin on mahdollista merkittävä tehtäville
+kuin kaikki tehtävät on suoritettu. Tällöin on mahdollista merkitä tehtäville
 käsittelijä. Käsittelijä ajetaan vasta, kun kaikki tehtävät on suoritettu.
 Yleinen käyttö käsittelijöille  on nimenomaan asetustiedostojen yhteydessä.
 Käsittelijä ajetaan vain jos tehtävä, johon se on liitetty, tekee muutoksia.
@@ -195,13 +195,13 @@ avulla, kuten esimerkissä \ref{lst:handler-task-example} on näytetty.
 
 \subsection{Muuttujat ja holvi}
 
-Ansiblessa tietoa säilytään muuttujissa. Muuttujia on mahdollista määrittää monella
-eri tavalla. Muuttujat on voitu määritellä esimerkiksi roolissa, inventorissa
+Ansiblessa tietoa säilytetään muuttujissa. Muuttujia on mahdollista määrittää monella
+eri tavalla. Muuttujat on voitu määritellä esimerkiksi roolissa, inventaariossa
 tai playbookissa ja ne voivat kohdistua tiettyyn palvelimeen tai palvelimien
 muodostomaan ryhmään. \parencite{JamesFreeman2020PA2}
 
-Muuttujiin saatetaan kuitenkin haluta määritellä salasanoja tai muida arkaluontoisia
-tietoja. Jotta arkaluontoiset tiedot saadaan salattua, voidaan käyttään Ansiblen
+Muuttujiin saatetaan kuitenkin haluta määritellä salasanoja tai muita arkaluontoisia
+tietoja. Jotta arkaluontoiset tiedot saadaan salattua, voidaan käyttää Ansiblen
 tarjoamaa holvia. \parencite{JamesFreeman2020PA2}
 
 \begin{lstlisting}[
